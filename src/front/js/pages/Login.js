@@ -13,10 +13,9 @@ function Login() {
 
         try {
             await actions.login(email, password);
-
             if (store.viewLogged) {
                 navigate("/movies");
-            }
+            } else null;
         } catch (error) {
             console.error("An error occurred during login:", error);
         }
