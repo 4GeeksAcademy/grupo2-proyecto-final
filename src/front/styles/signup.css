@@ -17,7 +17,7 @@
     width: 60vw;
     height: 4rem;
     flex-shrink: 0;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid #8C8C8C;
     margin-bottom: 20px;
 }
@@ -44,7 +44,7 @@
     width: 60vw;
     height: 4rem;
     flex-shrink: 0;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 0px;
     background: #1B0140;
     color: #FFF;
