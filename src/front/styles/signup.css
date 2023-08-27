@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+.signup-form-title {
+    width: 60vw;
+    color: #1B0140;
+    font-family: "Open Sans";
+    font-size: 3rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 2.5px;
+    margin-bottom: 2rem;
+}
+
+.signup-form-group {
+    display: inline-block;
+    width: 60vw;
+    height: 4rem;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8C8C8C;
+    margin-bottom: 20px;
+}
+
+.signup-form-control {
+    outline: none;
+    border: none;
+    display: block;
+    line-height: 1.2em;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+}
+
+.signup-label {
+    display: block;
+    font-size: 1rem;
+    color: #8C8C8C;
+    margin-top: 0.3rem;
+    margin-left: 1rem;
+    text-align: left;
+}
+
+.signup-btn {
+    width: 60vw;
+    height: 4rem;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 0px;
+    background: #1B0140;
+    color: #FFF;
+    font-family: "Open Sans";
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.8px;
+}

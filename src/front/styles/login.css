@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+.login-form {
+    display: flex;
+    width: 80vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    background: #1B0140;
+}
+
+.login-form-title {
+    color: #FFF;
+    font-family: "Open Sans";
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 4rem;
+    margin-top: 7rem;
+}
+
+.login-form-control {
+    width: 60vw;
+    height: 4rem;
+    border: 0;
+    border-radius: 10px;
+    background: #D9D9D9;
+    font-size: 1.2rem;
+    position: relative;
+}
+
+.login-form-control::placeholder {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: #1B0140;
+    font-family: "Open Sans";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.login-btn {
+    margin-top: 2.65rem;
+    margin-bottom: 1rem;
+    width: 60vw;
+    height: 4rem;
+    border: 0;
+    border-radius: 10px;
+    background: #FBBC04;
+    color: #1B0140;
+    font-family: "Open Sans";
+    font-size: 2.2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 1.8px;
+}
+
+.signup-link, .signup-redirect {
+    width: 60vw;
+    align-text: left;
+    color: #FFF;
+    font-family: "Open Sans";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 0.0625rem;
+    text-decoration: none;
+}
+
+.signup-redirect:hover{
+    color: #FBBC04;
+}
+
+.login-btn-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8rem;
+}
