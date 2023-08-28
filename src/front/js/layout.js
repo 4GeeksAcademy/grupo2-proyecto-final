@@ -32,6 +32,11 @@ const Layout = () => {
                         <Route element={<SignUp />} path="/signup" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
+                        <Route element={<TermsOfUse/>} path="/TermsOfUse" />
+                        <Route element={<PrivacyPolicy/>} path="/PrivacyPolicy" />
+                        <Route element={<FAQs/>} path="/FAQs" />
+                        <Route element={<Footer/>} path="/Footer" />
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>
