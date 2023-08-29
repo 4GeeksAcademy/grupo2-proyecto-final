@@ -13,7 +13,7 @@ class User(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id,
+            "user_id": self.id,
             "email": self.email,
             # do not serialize the password, its a security breach
         }
@@ -32,6 +32,23 @@ class Genre(db.Model):
             "id": self.id,
             "name": self.name,
         }
+    
+class Language(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    iso_639_1 = db.Column(db.String(4), nullable=False)
+    english_name = db.Column(db.String(50), nullable=False)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
+    movie = db.relationship('Movie', back_populates='spoken_languages')
+
+    def __repr__(self):
+        return f"Language: {self.english_name} with id {self.id}"
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "iso_639_1": self.iso_639_1,
+            "english_name": self.english_name,
+        }
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,6 +60,7 @@ class Movie(db.Model):
     original_language = db.Column(db.String(10))
     poster_path = db.Column(db.String(250))
     genres = db.relationship('Genre', back_populates='movie')
+    spoken_languages = db.relationship('Language', back_populates='movie')
 
     def __repr__(self):
         return f"Movie: {self.title} with id {self.id}"
@@ -63,8 +81,9 @@ class Favorites(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship(User)
-    movie_id = db.Column(db.Integer, db.ForeignKey(Movie.id), nullable=False)
-    movie = db.relationship(Movie)
+    movie_id = db.Column(db.Integer, nullable=False)
+    # movie_id = db.Column(db.Integer, db.ForeignKey(Movie.id), nullable=False)
+    # movie = db.relationship(Movie)
 
     def __repr__(self):
         return f"Favorite: {self.id} for User: {self.user_id}"
