@@ -3,12 +3,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
+
 import { Home } from "./pages/home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
+
+import TermsOfUse from "./pages/TermsOfUse";      
+import PrivacyPolicy from "./pages/PrivacyPolicy"; 
+import FAQs from "./pages/FAQs";                  
+
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -32,10 +38,9 @@ const Layout = () => {
                         <Route element={<SignUp />} path="/signup" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
-                        <Route element={<TermsOfUse/>} path="/TermsOfUse" />
-                        <Route element={<PrivacyPolicy/>} path="/PrivacyPolicy" />
-                        <Route element={<FAQs/>} path="/FAQs" />
-                        <Route element={<Footer/>} path="/Footer" />
+                        <Route element={<TermsOfUse />} path="/terms-of-use"/>
+                        <Route element={<PrivacyPolicy />} path="/privacy-policy" />
+                        <Route element={<FAQs />} path="/faqs" />
 
                     </Routes>
                     <Footer />
