@@ -1,11 +1,10 @@
 import React from "react";
 
-
 const TermsOfUse = () => {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-8 offset-md-2">
+        <div className="col-md-8 offset-md-2 bg-light p-4 rounded shadow">
           <h1 className="mb-4">Terms of Use</h1>
           <p>
             Welcome to our website. If you continue to browse and use this
