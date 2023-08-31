@@ -44,7 +44,7 @@ const SingleMovie = () => {
                         </div>
                         <div className='col-lg-6 col-md-6 col-sm-12' >
                             <img className="movieimg"
-                                src={`https://api.themoviedb.org/3/collection/collection_id/images/${params.theid}`}
+                                src={`https://api.themoviedb.org/3/collection/${movie_id}/images/?api_key=${API_key}`}
                             />
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 mt-3">
