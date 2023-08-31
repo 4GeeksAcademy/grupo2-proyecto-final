@@ -1,17 +1,25 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const PrivacyPolicy = () => {
   return (
-    <div>
-      <h1>Privacy Policy</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod
-        bibendum ante, nec eleifend lorem egestas ac. Sed auctor eros vel
-        ligula vehicula tincidunt.
-      </p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod
-        bibendum ante, nec eleifend lorem egestas ac. Sed auctor eros vel
-        ligula vehicula tincidunt.
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-8 offset-md-2">
+          <h1 className="mb-4">Privacy Policy</h1>
+          <p>
+            At our website, accessible from www.example.com, one of our main
+            priorities is the privacy of our visitors. This Privacy Policy
+            document contains types of information that is collected and
+            recorded by our website and how we use it.
+          </p>
+          <p>
+            If you have additional questions or require more information about
+            our Privacy Policy, do not hesitate to contact us.
+          </p>
+          {/* Más contenido de la política de privacidad */}
+        </div>
+      </div>
     </div>
   );
 };

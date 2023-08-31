@@ -41,7 +41,8 @@ const Layout = () => {
                         <Route element={<TermsOfUse />} path="/terms-of-use"/>
                         <Route element={<PrivacyPolicy />} path="/privacy-policy" />
                         <Route element={<FAQs />} path="/faqs" />
-
+                        <Route element={<RestrictedAccess/>} path="/restricted-access" />
+ 
                     </Routes>
                     <Footer />
                 </ScrollToTop>
