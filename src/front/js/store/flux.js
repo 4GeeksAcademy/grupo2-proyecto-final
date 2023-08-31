@@ -137,9 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			toggleSignUp: (value) => {
 				setStore({ viewSignUp: value })
 			},
-			fetchMovieByID: (id) => {
-				
-			}
+
 		}
 	}
 };
