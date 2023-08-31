@@ -13,7 +13,9 @@ import injectContext from "./store/appContext";
 
 import TermsOfUse from "./pages/TermsOfUse";      
 import PrivacyPolicy from "./pages/PrivacyPolicy"; 
-import FAQs from "./pages/FAQs";                  
+import FAQs from "./pages/FAQs";  
+import RestrictedAccess from "./pages/RestrictedAccess";
+
 
 
 import { Navbar } from "./component/navbar";
