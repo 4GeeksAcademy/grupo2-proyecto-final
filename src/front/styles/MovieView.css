@@ -1,0 +1,12 @@
+.SingleMovie {
+    background-color: black;
+    height: 1150px;
+}
+
+.movieheader {
+    margin-top: 150px;
+}
+
+.moviebody {
+    margin-left: 10%;
+}
