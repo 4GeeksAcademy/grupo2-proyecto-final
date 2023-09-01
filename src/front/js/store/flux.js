@@ -4,11 +4,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			viewSignUp: false,
 			viewLogged: false,
 
+			user_id: null,
 			email: null,
 			password: null,
 			token: null,
 			loggedUser: "",
 
+			favorites: [],
 			message: null,
 		},
 		actions: {
@@ -17,18 +19,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			getMessage: async () => {
-				try {
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
-					return data;
-				} catch (error) {
-					console.log("Error loading message from backend", error)
-				}
-			},
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
@@ -63,7 +53,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (resp.status == 200) {
 						localStorage.setItem("token", data.access_token)
-						setStore({ viewLogged: true })
+						setStore({ viewLogged: true, user_id: data.user_id })
 					} else alert(data.message);
 
 				} catch (err) {
@@ -136,6 +126,77 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ viewSignUp: value })
 			},
 
+			// adds a selected movie to the favorites' list of the user
+			addFavorites: async (selectedItem) => {
+				const token = localStorage.getItem("token");
+				setStore({ token: token });
+				const user_id = getStore().user_id;
+				if (!user_id) {
+					console.log("Please enter the user id");
+					return;
+				}
+
+				try {
+					const options = {
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify({
+							"user_id": user_id
+						})
+					};
+
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/favorite/${selectedItem.id}`, options);
+
+					if (resp.ok) {
+						const data = await resp.json();
+						console.log(data.message);
+						const listOfFavorites = getStore().favorites;
+						if (!listOfFavorites.some(item => item.id === selectedItem.id)) {
+							setStore({ favorites: [...listOfFavorites, selectedItem] });
+							console.log("Favorite movie was added successfully");
+						} else {
+							console.log(data.message);
+						}
+					} else {
+						console.log("Request failed with status:", resp.status);
+					}
+				} catch (err) {
+					console.error("An error has occurred:", err);
+				}
+			},
+
+			//deletes a selectedFavorite Movie from favorites' list
+			deleteFavorites: async (selectedFavorite) => {
+				const token = localStorage.getItem("token");
+				setStore({ token: token });
+
+				try {
+					const options = {
+						method: 'DELETE',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+					};
+
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/favorite/${selectedFavorite.id}`, options);
+
+					if (resp.ok) {
+						const data = await resp.json();
+						console.log(data.message);
+						const listOfFavorites = getStore().favorites;
+						setStore({ favorites: listOfFavorites.filter((item) => item.id !== selectedFavorite.id) });
+						console.log("The movie was removed from favorites");
+					} else {
+						console.log("Request failed with status:", resp.status);
+					}
+				} catch (err) {
+					console.error("An error has occurred:", err);
+				};
+			},
 		}
 	}
 };
