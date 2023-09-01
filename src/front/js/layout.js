@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
+import SingleMovie from "./pages/SingleMovie";
 import LandingPage from "./pages/LandingPage";
 import { Home } from "./pages/home";
 import Login from "./pages/Login";
@@ -37,6 +38,7 @@ const Layout = () => {
                         <Route path="/" element={<LandingPage />} />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<SingleMovie />} path="/movie" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
