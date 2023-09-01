@@ -84,7 +84,8 @@
     justify-content: center;
 }
 
-.filter-button {
+.filter-button,
+.clear-button {
     border-radius: 0.3125rem;
     border: 0px;
     background: #1B0140;
@@ -95,4 +96,19 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.filter-button:hover,
+.clear-button:hover {
+    background-color: #35027e;
+}
+
+.no-movies-text {
+    color: #FFF;
+    font-family: "Open Sans";
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 500;
 }

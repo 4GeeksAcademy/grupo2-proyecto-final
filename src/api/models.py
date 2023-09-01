@@ -15,43 +15,12 @@ class User(db.Model):
         return {
             "user_id": self.id,
             "email": self.email,
-            # do not serialize the password, its a security breach
         }
 
-class Genre(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
-    movie = db.relationship('Movie', back_populates='genres')
-
-    def __repr__(self):
-        return f"Genre: {self.name} with id {self.id}"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-        }
-    
-class Language(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    iso_639_1 = db.Column(db.String(4), nullable=False)
-    english_name = db.Column(db.String(50), nullable=False)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
-    movie = db.relationship('Movie', back_populates='spoken_languages')
-
-    def __repr__(self):
-        return f"Language: {self.english_name} with id {self.id}"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "iso_639_1": self.iso_639_1,
-            "english_name": self.english_name,
-        }
-
-class Movie(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class WatchLater(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship(User)
     title = db.Column(db.String(250), nullable=False)
     overview = db.Column(db.Text)
     release_date = db.Column(db.String(20))
@@ -59,15 +28,14 @@ class Movie(db.Model):
     vote_average = db.Column(db.Float)
     original_language = db.Column(db.String(10))
     poster_path = db.Column(db.String(250))
-    genres = db.relationship('Genre', back_populates='movie')
-    spoken_languages = db.relationship('Language', back_populates='movie')
 
     def __repr__(self):
-        return f"Movie: {self.title} with id {self.id}"
+        return f"WatchLater_Movie: {self.title} with id {self.id}"
 
     def serialize(self):
         return {
             "id": self.id,
+            "user_id": self.user_id,
             "title": self.title,
             "overview": self.overview,
             "release_date": self.release_date,
@@ -75,58 +43,6 @@ class Movie(db.Model):
             "vote_average": self.vote_average,
             "original_language": self.original_language,
             "poster_path": self.poster_path,
-        }
-
-class Favorites(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship(User)
-    movie_id = db.Column(db.Integer, nullable=False)
-    # movie_id = db.Column(db.Integer, db.ForeignKey(Movie.id), nullable=False)
-    # movie = db.relationship(Movie)
-
-    def __repr__(self):
-        return f"Favorite: {self.id} for User: {self.user_id}"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "movie_id": self.movie_id,
-        }
-
-class Recommendations(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship(User)
-    movie_id = db.Column(db.Integer, db.ForeignKey(Movie.id), nullable=False)
-    movie = db.relationship(Movie)
-
-    def __repr__(self):
-        return f"Recommended_Movies: {self.id} for User: {self.user_id}"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "movie_id": self.movie_id,
-        }
-
-class UserPlaylist(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship(User)
-    movie_id = db.Column(db.Integer, db.ForeignKey(Movie.id), nullable=False)
-    movie = db.relationship(Movie)
-
-    def __repr__(self):
-        return f"User_Playlist: {self.id} for User: {self.user_id}"
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "movie_id": self.movie_id,
         }
 
     

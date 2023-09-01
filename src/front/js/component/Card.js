@@ -1,9 +1,24 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext';
+import PropTypes from 'prop-types';
 
-const Card = ({ movie }) => {
+const Card = ({ movie, user_id }) => {
     const { store, actions } = useContext(Context);
+
+    const handleAddToWatchLater = async () => {
+        console.log('user_id:', user_id);
+        actions.addToWatchLater({
+            id: movie.id,
+            title: movie.title,
+            overview: movie.overview,
+            poster_path: movie.poster_path,
+            release_date: movie.release_date,
+            original_language: movie.original_language,
+            runtime: movie.runtime || 0,
+            vote_average: movie.vote_average,
+        });
+    };
 
     return (
         <div className="card movies-card">
@@ -17,8 +32,8 @@ const Card = ({ movie }) => {
                 </div>
                 <div className="movies-footer-buttons">
                     <button type="button" className="btn btn-danger"
-                        onClick={() => { actions.addFavorites(movie) }}>
-                        <i className="fas fa-heart"></i>
+                        onClick={handleAddToWatchLater}>
+                        <i className="fas fa-eye"></i>
                     </button>
                     <Link to={`/movies/${movie.id}`} >
                         <button type="button" className="btn btn-warning movies-info-btn">
@@ -29,6 +44,11 @@ const Card = ({ movie }) => {
             </div>
         </div>
     )
+};
+
+Card.propTypes = {
+    movie: PropTypes.object.isRequired,
+    user_id: PropTypes.number.isRequired,
 };
 
 export default Card;
