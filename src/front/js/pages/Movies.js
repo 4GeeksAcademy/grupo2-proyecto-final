@@ -19,9 +19,12 @@ function Movies() {
                 store.selectedLanguage,
                 store.selectedRuntime
             );
+            // Sets the section title
+            actions.titleConditional();
         } catch (err) {
             console.error("Error in handleFiltersChange:", err);
-        }
+        };
+
     };
 
     const handleSearchBar = () => {
@@ -30,6 +33,8 @@ function Movies() {
         } else {
             actions.filterMoviesWithSearchBar(store.searchWord);
         }
+        // Sets the section title
+        actions.titleConditional();
     };
 
     const handleClearButton = () => {
@@ -53,7 +58,8 @@ function Movies() {
             <div className="row justify-content-center mb-5">
                 <div className="col-4">
                     <div className="category-selector">
-                        <select className="form-select" value={store.selectedGenre} onChange={(e) => actions.setSelectedGenre(e.target.value)}>
+                        <select className="form-select" value={store.selectedGenre}
+                            onChange={(e) => actions.setSelectedGenre(e.target.value)}>
                             <option value="" key="0">Category</option>
                             {store.genres.map(genre => (
                                 <option key={genre.id} className="movies-option" value={genre.id}>
@@ -65,10 +71,12 @@ function Movies() {
                 </div>
                 <div className="col-4">
                     <div className="language-selector">
-                        <select className="form-select" value={store.selectedLanguage} onChange={(e) => actions.setSelectedLanguage(e.target.value)}>
+                        <select className="form-select" value={store.selectedLanguage}
+                            onChange={(e) => actions.setSelectedLanguage(e.target.value)}>
                             <option value="" key="0">Movie Language</option>
                             {store.languages.map(language => (
-                                <option key={language.iso_639_1} className="language-option" value={language.iso_639_1}>
+                                <option key={language.iso_639_1} className="language-option"
+                                    value={language.iso_639_1}>
                                     {language.english_name}
                                 </option>
                             ))}
@@ -77,7 +85,8 @@ function Movies() {
                 </div>
                 <div className="col-4">
                     <div className="runtime-selector">
-                        <select className="form-select" value={store.selectedRuntime} onChange={(e) => actions.setSelectedRuntime(e.target.value)}>
+                        <select className="form-select" value={store.selectedRuntime}
+                            onChange={(e) => actions.setSelectedRuntime(e.target.value)}>
                             <option value="" key="0">Available Time</option>
                             <option value="30">Up to 30 minutes</option>
                             <option value="60">Up to 1 hour</option>
@@ -97,8 +106,13 @@ function Movies() {
                     </button>
                 </div>
             </div>
+            <div className="mb-3">
+                {/* Section title */}
+                <h2 className="text-light">{store.sectionTitle}</h2>
+            </div>
             <div>
                 <div className="text-center d-flex overflow-auto pt-3 movies-card-container">
+                    {/* Section movies */}
                     {store.recommendations === false ?
                         <div className="no-movies-text">
                             Sorry we ran out of recommendations
