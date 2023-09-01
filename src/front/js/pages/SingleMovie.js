@@ -7,29 +7,52 @@ const SingleMovie = () => {
     const { store, actions } = useContext(Context);
     const [selectedMovie, setSelectedMovie] = useState("");
     const API_key = "491c31c8a0eb95d5d79ed9ed60929455";
-    const movie_id = "00015";
+    const movie_id = "808";
     const params = useParams();
 
+    // Fetch Movie information
     useEffect(() => {
         const fetchMovie = async () => {
             try {
                 const response = await fetch(
                     `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_key}`
-                );
+                )
 
                 if (response.ok) {
                     const data = await response.json();
                     setSelectedMovie(data);
                 } else {
-                    console.error('Error fetching movie data');
+                    console.error("Error fetching movie data");
                 }
             } catch (error) {
-                console.error('Error fetching movie data', error);
+                console.error("Error fetching movie data", error);
             }
-        };
+        }
 
         fetchMovie();
-    }, []);
+    }, [])
+
+    //Fetch Watch Providers
+
+    useEffect(() => {
+        const fetchProvider = async () => {
+            try {
+                const response = await fetch(
+                    `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_key}&append_to_response=watch/providers`
+                )
+                if (response.ok) {
+                    const data = await response.json()
+                    setSelectedMovie(data)
+                } else {
+                    console.error("Error fetching provider data")
+                }
+            } catch (error) {
+                console.error("Error fetching movie data", error);
+            }
+        }
+        fetchProvider();
+    }, [])
+
 
     if (!selectedMovie) {
         return <p>Oops...</p>;
@@ -40,16 +63,17 @@ const SingleMovie = () => {
             <div className='SingleMovie' >
                 <div className='container'>
                     <section className="row">
-                        <div className='movieheader' >
-                        </div>
+                        <div className='movieheader' />
                         <div className='col-lg-6 col-md-6 col-sm-12' >
                             <img className="movieimg"
-                                src={`https://api.themoviedb.org/3/collection/${movie_id}/images/?api_key=${API_key}`}
+                                src={`https://image.tmdb.org/t/p/w300/${selectedMovie.poster_path}`}
                             />
                         </div>
-                        <div className="col-lg-6 col-md-6 col-sm-12 mt-3">
-                            <h1 className="mt-5 text-white" >{selectedMovie.title}</h1>
-                            <p className='text-white'>{selectedMovie.overview}</p>
+                        <div className="col-lg-4 col-md-6 col-sm-12 mt-3">
+                            <div className='headertext'>
+                                <h1 className="mt-5 text-white" >{selectedMovie.title}</h1>
+                                <p className='text-white'>{selectedMovie.overview}</p>
+                            </div>
                         </div>
                     </section>
                     <hr className='text-white' />
@@ -65,14 +89,18 @@ const SingleMovie = () => {
                             </div>
                             <div className="col-lg-2 col-sm-2 col-6 text-white">
                                 <p className="fw-bold m-0">Genre:</p>
-                                <p>{selectedMovie.genres.name}</p>
+                                <p>  {selectedMovie.genres.map((genre) => (
+                                    <p key={genre.id}>{genre.name}</p>
+                                ))}</p>
                             </div>
                             <div className="col-lg-2 col-sm-2 col-6 text-white">
                                 <p className="fw-bold m-0">Watch Providers:</p>
-                                <p>{selectedMovie.original_language}</p>
+                                {selectedMovie?.['watch/providers']?.results?.BR?.flatrate.map((provider) => (
+                                    <p key={provider.provider_id}>{provider.provider_name}</p>
+                                ))}
                             </div>
                             <div className="col-lg-2 col-sm-2 col-6 text-white">
-                                <p className="fw-bold m-0">Ratings:</p>
+                                <p className="fw-bold m-0">Rating:</p>
                                 <p>{selectedMovie.vote_average}</p>
                             </div>
                         </section>
