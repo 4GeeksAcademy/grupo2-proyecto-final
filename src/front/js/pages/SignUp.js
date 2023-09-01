@@ -25,7 +25,7 @@ function SignUp() {
     };
 
     return (
-        <div className="mt-5">
+        <div className="signup-container">
             <form className="m-auto" onSubmit={handleSubmit}>
                 <h1 className="container signup-form-title">Create an account to get started</h1>
                 <div class="signup-form-container text-center">

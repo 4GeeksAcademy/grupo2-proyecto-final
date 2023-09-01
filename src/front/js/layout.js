@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
@@ -26,11 +26,12 @@ const Layout = () => {
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
+
     return (
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    <Navbar />
+                    <NavbarConditional />
                     <Routes>
                         <Route element={<Login />} path="/login" />
                         <Route element={<SignUp />} path="/signup" />
@@ -46,6 +47,16 @@ const Layout = () => {
             </BrowserRouter>
         </div>
     );
+};
+
+const NavbarConditional = () => {
+    const location = useLocation();
+
+    // Renders navbar if it isn't landing page
+    if (location.pathname !== "/") {
+        return <Navbar />;
+    }
+    return null; // 
 };
 
 export default injectContext(Layout);

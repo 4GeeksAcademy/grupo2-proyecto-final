@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
+.signup-container {
+    padding: 10rem 5rem 5rem 5rem;
+}
+
 .signup-form-title {
     width: 60vw;
     color: #1B0140;
