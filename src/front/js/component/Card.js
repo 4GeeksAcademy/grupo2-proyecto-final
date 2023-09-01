@@ -23,8 +23,9 @@ const Card = ({ movie, user_id }) => {
     return (
         <div className="card movies-card">
             <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="img-fluid" alt={movie.title} />
-                <Link to={`/movies/${movie.id}`} />
+                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    className="img-fluid" alt={movie.title} />
+                <Link to={`/movie/${movie.id}`} />
             </div>
             <div className="card-footer movies-footer">
                 <div className="movies-footer-title">
@@ -35,7 +36,7 @@ const Card = ({ movie, user_id }) => {
                         onClick={handleAddToWatchLater}>
                         <i className="fas fa-eye"></i>
                     </button>
-                    <Link to={`/movies/${movie.id}`} >
+                    <Link to={`/movie/${movie.id}`} >
                         <button type="button" className="btn btn-warning movies-info-btn">
                             <i className="text-light fas fa-circle-exclamation"></i>
                         </button>

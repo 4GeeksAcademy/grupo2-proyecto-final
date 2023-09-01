@@ -22,6 +22,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentWord: "",
 			searchWord: "",
 			recommendations: true,
+
+			sectionTitle: "Popular Movies",
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -275,6 +277,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// stores the text input to the global state
 			updateSearchWord: (searchWord) => {
 				setStore({ searchWord });
+			},
+			// stores section title
+			setSectionTitle: (sectionTitle) => {
+				setStore({ sectionTitle });
+			},
+
+			//sets section title when filtered
+			titleConditional: () => {
+				const chosenGenre = getStore().selectedGenre;
+				const chosenLanguage = getStore().selectedLanguage;
+				const chosenRuntime = getStore().selectedRuntime;
+
+				if (chosenGenre || chosenLanguage || chosenRuntime || getStore().searchWord) {
+					getActions().setSectionTitle("Recommended Movies");
+				} else {
+					getActions().setSectionTitle("Popular Movies");
+				}
 			},
 
 			// adds a movie to the user's watch later list
