@@ -10,8 +10,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			loggedUser: "",
 
 			message: null,
-
-			movieView: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
