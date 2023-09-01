@@ -1,5 +1,6 @@
 import React from 'react'
 import rigoImageUrl from "../../img/rigo-baby.jpg";
+import movplusImageUrl from "../../img/mov+icon_white.png";
 import { Link } from 'react-router-dom';
 import "../../styles/LandinP.css";
 
@@ -9,7 +10,7 @@ export const landingPage = () => {
         <>
             <div className='landingPageStyle'>
                 <span className='landHeader'>
-                    <img src="https://www.edigitalagency.com.au/wp-content/uploads/netflix-logo-white-png.png" />
+                    <img src={movplusImageUrl} style={{ height: "3rem" }} />
                     <Link to={"/login"}>
                         <button type="button" class="btn btn-lg">Sign In</button>
                     </Link>

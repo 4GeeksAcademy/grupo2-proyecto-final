@@ -1,0 +1,23 @@
+.navbar {
+    background-color: #1B0140;
+}
+
+.navbar-list {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-dropdown {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-item {
+    margin-right: 1rem;
+}
+
+.dropdown-logout-btn {
+    text-decoration: none;
+    color: inherit;
+}

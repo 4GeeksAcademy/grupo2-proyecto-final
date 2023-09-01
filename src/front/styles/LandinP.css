@@ -77,6 +77,11 @@
     background-color: #1B0140;
 }
 
+.landHeader button:hover {
+    color: white;
+    background-color: #35027e;
+}
+
 .btnsection button {
     /* body get started*/
     margin-top: 20px;
@@ -90,6 +95,11 @@
     font-size: 35px;
 }
 
+.btnsection button:hover {
+    color: white;
+    background-color: #35027e;
+}
+
 .faqbtn button {
     width: 9em;
     padding: 20px;
@@ -98,6 +108,11 @@
     color: white;
     margin-bottom: 60px;
     margin-top: 20px;
+}
+
+.faqbtn button:hover {
+    color: white;
+    background-color: #26212c;
 }
 
 .landHeader img {

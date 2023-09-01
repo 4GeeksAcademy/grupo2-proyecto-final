@@ -10,7 +10,6 @@ function Movies() {
     useEffect(() => {
         actions.fetchPopularMovies();
         actions.fetchGenresAndLanguages();
-        actions.fetchPopularMovies();
     }, []);
 
     const handleFiltersChange = async () => {
