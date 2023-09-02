@@ -2,6 +2,7 @@ import React from "react";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/footer.css";
 
+
 export const Footer = () => (
   <footer className="movie-footer">
     <div className="footer-content">
@@ -19,7 +20,7 @@ export const Footer = () => (
       </div>
     </div>
     <div className="attribution">
-      <p>&copy; {new Date().getFullYear()} Moon+ | All rights reserved</p>
+      <p>&copy; {new Date().getFullYear()} MOV+ | All rights reserved</p>
     </div>
   </footer>
 );
