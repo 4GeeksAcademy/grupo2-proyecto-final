@@ -15,9 +15,32 @@
 
 .nav-item {
     margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.nav-link {
+    font-family: "Open Sans";
+    color: #cccccc !important;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active {
+    color: white;
+    font-weight: 700;
 }
 
 .dropdown-logout-btn {
     text-decoration: none;
     color: inherit;
+}
+
+.not-logged-link {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-link-signin {
+    color: #FBBC04 !important;
+    font-family: "Open Sans";
 }

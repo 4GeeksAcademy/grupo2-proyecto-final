@@ -15,6 +15,11 @@
     margin-bottom: 5rem;
 }
 
+.section-title {
+    font-family: "Open Sans";
+    font-weight: 800;
+}
+
 .searchbar-input-group {
     max-width: 70%;
     margin: auto;
