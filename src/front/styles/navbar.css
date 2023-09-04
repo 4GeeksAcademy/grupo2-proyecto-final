@@ -16,6 +16,7 @@
 .nav-item {
     margin-right: 1rem;
     font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .nav-link {
@@ -26,8 +27,7 @@
 .nav-link:hover,
 .nav-link:focus,
 .nav-link:active {
-    color: white;
-    font-weight: 700;
+    transform: scale(1.05);
 }
 
 .dropdown-logout-btn {
@@ -43,4 +43,18 @@
 .nav-link-signin {
     color: #FBBC04 !important;
     font-family: "Open Sans";
+}
+
+.fa-arrow-right-from-bracket,
+.fa-user {
+    margin-right: 0.5rem;
+}
+
+.dropdown-menu {
+    background-color: #585858;
+}
+
+.dropdown-item,
+.dropdown-divider {
+    color: white;
 }

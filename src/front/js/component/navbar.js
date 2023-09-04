@@ -70,8 +70,8 @@ export const Navbar = () => {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link className="nav-link" to="/playlist">
-									Watch Later
+								<Link className="nav-link" to="/watchlist">
+									Watchlist
 								</Link>
 							</li>
 						</ul>
@@ -89,7 +89,8 @@ export const Navbar = () => {
 								</a>
 								<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li>
-										<Link className="dropdown-item" to="/user_profile">
+										<Link className="dropdown-item" to="/userprofile">
+											<i class="fa-solid fa-user"></i>
 											User Profile
 										</Link>
 									</li>
@@ -99,6 +100,7 @@ export const Navbar = () => {
 									<li>
 										<Link className="dropdown-logout-btn" to="/">
 											<button className="dropdown-item" onClick={actions.logout}>
+												<i className="fa-solid fa-arrow-right-from-bracket"></i>
 												Logout
 											</button>
 										</Link>
