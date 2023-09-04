@@ -24,7 +24,7 @@ function Login() {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="login-container">
             <form className="login-form m-auto" onSubmit={handleSubmit}>
                 <h1 className="login-form-title">Sign In</h1>
                 <div className="login-form-group mb-3">

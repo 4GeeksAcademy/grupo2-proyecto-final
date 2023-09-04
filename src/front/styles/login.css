@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
+.login-container {
+    padding: 10rem 5rem 5rem 5rem;
+}
+
 .login-form {
     display: flex;
-    width: 80vw;
+    width: 70vw;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -17,8 +21,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin-bottom: 4rem;
-    margin-top: 7rem;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
 }
 
 .login-form-control {
@@ -61,9 +65,9 @@
     letter-spacing: 1.8px;
 }
 
-.signup-link, .signup-redirect {
+.signup-link,
+.signup-redirect {
     width: 60vw;
-    align-text: left;
     color: #FFF;
     font-family: "Open Sans";
     font-size: 1.25rem;
@@ -74,7 +78,7 @@
     text-decoration: none;
 }
 
-.signup-redirect:hover{
+.signup-redirect:hover {
     color: #FBBC04;
 }
 
@@ -83,5 +87,5 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8rem;
+    margin-bottom: 3rem;
 }

@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+.userprofile-body {
+    background: #000;
+    padding-bottom: 125px;
+}
+
+.userprofile-form-title {
+    width: 60vw;
+    color: #FFF;
+    font-family: Open Sans;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-top: 50px;
+}
+
+.userprofile-form-group {
+    display: inline-block;
+    width: 60vw;
+    height: 4rem;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.userprofile-form-control {
+    background: #D9D9D9;
+    display: inline-block;
+    width: 60vw;
+    height: 4rem;
+    flex-shrink: 0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.userprofile-btn {
+    width: 60vw;
+    height: 4rem;
+    flex-shrink: 0;
+    border-radius: 10px;
+    border: 0px;
+    background: #FBBC04;
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.8px;
+    margin-top: 25px;
+}
