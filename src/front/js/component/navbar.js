@@ -45,7 +45,7 @@ export const Navbar = () => {
 				<div className="container">
 					<Link className="navbar-brand" to="/">
 						<img src={movplusImageUrl} style={{ height: "3rem" }} alt="Logo" />
-					</Link>
+          </Link>
 					<button
 						className="navbar-toggler"
 						type="button"

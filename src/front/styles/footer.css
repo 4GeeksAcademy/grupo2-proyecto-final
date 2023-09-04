@@ -1,0 +1,36 @@
+/* CSS for the footer */
+.movie-footer {
+  background-color: #1c1c1c;
+  color: white;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-logo img {
+  width: 50px; 
+}
+
+.footer-links a {
+  color: white;
+  margin-right: 20px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.attribution {
+  text-align: center;
+  margin-top: 20px;
+  background-color: #1c1c1c;
+  padding: 10px 0;
+}
