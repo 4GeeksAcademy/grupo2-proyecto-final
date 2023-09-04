@@ -1,5 +1,5 @@
 import React from "react";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import movplusImageUrl from "../../img/mov+icon.png";
 import "../../styles/footer.css";
 
 
@@ -7,7 +7,7 @@ export const Footer = () => (
   <footer className="movie-footer">
     <div className="footer-content">
       <div className="footer-logo">
-        <img src={rigoImageUrl} />
+        <img src={movplusImageUrl} />
       </div>
       <div className="footer-links">
         <a href="/terms-of-use">Terms of Use</a>
