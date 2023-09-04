@@ -11,12 +11,12 @@ import SignUp from "./pages/SignUp";
 import Movies from "./pages/Movies";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import UserProfile from "./pages/UserProfile";
 import injectContext from "./store/appContext";
 
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-
 
 //create your first component
 const Layout = () => {
@@ -36,6 +36,7 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<SignUp />} path="/signup" />
                         <Route element={<Movies />} path="/movies" />
+                        <Route element={<UserProfile />} path="/userprofile" />
                         <Route path="/" element={<LandingPage />} />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
