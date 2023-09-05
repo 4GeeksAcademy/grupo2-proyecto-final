@@ -15,6 +15,7 @@ import TermsOfUse from "./pages/TermsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy"; 
 import FAQs from "./pages/FAQs";  
 import RestrictedAccess from "./pages/RestrictedAccess";
+import PasswordRecovery from "./pages/PasswordRecovery";
 
 
 
@@ -44,6 +45,7 @@ const Layout = () => {
                         <Route element={<PrivacyPolicy />} path="/privacy-policy" />
                         <Route element={<FAQs />} path="/faqs" />
                         <Route element={<RestrictedAccess/>} path="/restricted-access" />
+                        <Route element={<PasswordRecovery/>} path="/password-recovery" />
  
                     </Routes>
                     <Footer />
