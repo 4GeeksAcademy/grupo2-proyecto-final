@@ -49,7 +49,7 @@ const Card = ({ movie, user_id }) => {
 
 Card.propTypes = {
     movie: PropTypes.object.isRequired,
-    user_id: PropTypes.number.isRequired,
+    user_id: PropTypes.number,
 };
 
 export default Card;

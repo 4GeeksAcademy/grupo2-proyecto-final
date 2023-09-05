@@ -1,56 +1,75 @@
-import React, { useContext, useState } from 'react';
-import { Context } from '../store/appContext';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../store/appContext';
 import "../../styles/userprofile.css";
 
 function UserProfile() {
     const { store, actions } = useContext(Context);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!store.viewLogged) {
+            navigate("/restricted-access");
+            return;
+        }
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
+            // checks password is correct
+            if (store.newPassword !== store.confirmPassword) {
+                alert("New password and confirmation password do not match.");
+                return;
+            }
+
             const updatedData = {
-                email: email,
-                password: password
+                currentPassword: store.currentPassword,
+                newPassword: store.newPassword,
             };
 
             await actions.updateProfile(updatedData);
-            if (store.viewUserProfile)
-                navigate("/userprofile");
         } catch (error) {
-            console.error("An error occurred during profile update:", error);
+            console.error("An error has occurred while changing your password:", error);
+            e.target.reset();
         }
-        e.target.reset();
     };
 
     return (
         <div>
             <div className="userprofile-body">
                 <form className="m-auto" onSubmit={handleSubmit}>
-                    <h1 className="container userprofile-form-title">User Information</h1>
-                    <div class="userprofile-form-container text-center">
+                    <h1 className="container userprofile-form-title">Update Password</h1>
+                    <div className="userprofile-form-container text-center">
                         <div className="userprofile-form-group">
                             <input
-                                type="email"
+                                type="password"
                                 className="userprofile-form-control"
-                                id="inputEmail"
-                                placeholder="Email Address"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                id="inputCurrentPassword"
+                                placeholder="Current Password"
+                                value={store.currentPassword}
+                                onChange={(e) => actions.setCurrentPassword(e.target.value)}
                             />
                         </div>
                         <div className="userprofile-form-group">
                             <input
                                 type="password"
                                 className="userprofile-form-control"
-                                id="inputPassword"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                id="inputNewPassword"
+                                placeholder="New Password"
+                                value={store.newPassword}
+                                onChange={(e) => actions.setNewPassword(e.target.value)}
+                            />
+                        </div>
+                        <div className="userprofile-form-group">
+                            <input
+                                type="password"
+                                className="userprofile-form-control"
+                                id="inputConfirmPassword"
+                                placeholder="Confirm Password"
+                                value={store.confirmPassword}
+                                onChange={(e) => actions.setConfirmPassword(e.target.value)}
                             />
                         </div>
                     </div>

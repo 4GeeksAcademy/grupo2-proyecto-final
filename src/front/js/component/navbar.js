@@ -45,7 +45,7 @@ export const Navbar = () => {
 				<div className="container">
 					<Link className="navbar-brand" to="/">
 						<img src={movplusImageUrl} style={{ height: "3rem" }} alt="Logo" />
-          </Link>
+					</Link>
 					<button
 						className="navbar-toggler"
 						type="button"
@@ -90,7 +90,7 @@ export const Navbar = () => {
 								<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li>
 										<Link className="dropdown-item" to="/userprofile">
-											<i class="fa-solid fa-user"></i>
+											<i className="fa-solid fa-user"></i>
 											User Profile
 										</Link>
 									</li>

@@ -8,6 +8,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			email: null,
 			password: null,
 			token: null,
+			currentPassword: "",
+			newPassword: "",
+			confirmPassword: "",
 			loggedUser: "",
 
 			watchLaterList: [],
@@ -26,26 +29,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			sectionTitle: "Popular Movies",
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			},
-
 			login: async (email, password) => {
 				try {
 					const options = {
@@ -126,6 +109,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				catch (err) {
 					console.error("An error has occurred", err);
+				}
+			},
+
+			//update user information
+			updateProfile: async (updatedData) => {
+				const token = localStorage.getItem("token");
+				setStore({ token: token });
+
+				if (!token) {
+					alert("You are not logged in. Please log in to update your password.");
+					return;
+				}
+
+				try {
+					const options = {
+						method: 'PUT',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify({
+							"current_password": updatedData.currentPassword,
+							"new_password": updatedData.newPassword
+						})
+					};
+
+					const resp = await fetch(process.env.BACKEND_URL + "/api/updatepassword", options);
+					const data = await resp.json();
+					console.log(data);
+
+					if (resp.status == 200) {
+						alert("Password updated successfully")
+					} else {
+						alert(data.message);
+					}
+
+				} catch (err) {
+					console.error("An error has occurred while updating the password", err);
 				}
 			},
 
@@ -282,7 +303,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setSectionTitle: (sectionTitle) => {
 				setStore({ sectionTitle });
 			},
-
+			// stores current password
+			setCurrentPassword: (currentPassword) => {
+				setStore({ currentPassword })
+			},
+			// stores new password
+			setNewPassword: (newPassword) => {
+				setStore({ newPassword })
+			},
+			// stores confirm password
+			setConfirmPassword: (confirmPassword) => {
+				setStore({ confirmPassword })
+			},
 			//sets section title when filtered
 			titleConditional: () => {
 				const chosenGenre = getStore().selectedGenre;
