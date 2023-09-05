@@ -18,9 +18,8 @@ function Login() {
             } else null;
         } catch (error) {
             console.error("An error occurred during login:", error);
+            e.target.rest();
         }
-
-        e.target.reset();
     };
 
     return (
@@ -49,11 +48,11 @@ function Login() {
                 </div>
                 <div className="login-btn-section">
                     <button type="submit" className="login-btn">Login</button>
-						<div><small className="signup-link">Don't have an account?&nbsp;  
-                                <Link to={"/signup"} className="signup-redirect">
-                                   <i>Sign up now.</i> 
-                                </Link>
-					    </small></div>
+                    <div><small className="signup-link">Don't have an account?&nbsp;
+                        <Link to={"/signup"} className="signup-redirect">
+                            <i>Sign up now.</i>
+                        </Link>
+                    </small></div>
                 </div>
             </form>
         </div>

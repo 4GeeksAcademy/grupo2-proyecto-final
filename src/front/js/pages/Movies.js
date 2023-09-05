@@ -8,6 +8,11 @@ function Movies() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!store.viewLogged) {
+            navigate("/restricted-access");
+            return;
+        }
+
         actions.fetchPopularMovies();
         actions.fetchGenresAndLanguages();
     }, []);

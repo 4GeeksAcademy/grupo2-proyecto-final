@@ -28,7 +28,7 @@ function SignUp() {
         <div className="signup-container">
             <form className="m-auto" onSubmit={handleSubmit}>
                 <h1 className="container signup-form-title">Create an account to get started</h1>
-                <div class="signup-form-container text-center">
+                <div className="signup-form-container text-center">
                     <div className="signup-form-group">
                         <label htmlFor="inputEmail" className="signup-label">Email Address</label>
                         <input

@@ -12,7 +12,7 @@ export const landingPage = () => {
                 <span className='landHeader'>
                     <img src={movplusImageUrl} style={{ height: "3rem" }} />
                     <Link to={"/login"}>
-                        <button type="button" class="btn btn-lg">Sign In</button>
+                        <button type="button" className="btn btn-lg">Sign In</button>
                     </Link>
                 </span>
                 <div className='landBody'>
@@ -23,7 +23,7 @@ export const landingPage = () => {
                             <h5>Ready to watch? Subscribe now! </h5>
                             <div className='btnsection'>
                                 <Link to={"/signup"}>
-                                    <button type="button" class="btn btn-lg">Get Started </button>
+                                    <button type="button" className="btn btn-lg">Get Started </button>
                                 </Link>
                             </div>
                         </div>
@@ -89,7 +89,7 @@ export const landingPage = () => {
                             <h6> Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</h6>
                             <div className='faqbtn'>
                                 <Link to={"/signup"}>
-                                    <button type="button" class="btn btn-lg">Get Started </button>
+                                    <button type="button" className="btn btn-lg">Get Started </button>
                                 </Link>
                             </div>
                         </div>

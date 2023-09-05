@@ -2,7 +2,7 @@ import React from "react";
 
 const FAQs = () => {
   return (
-    <div className="container mt-3"> {/* Adjust the top margin here */}
+    <div className="container policy-container mt-3"> {/* Adjust the top margin here */}
       <div className="row">
         <div className="col-md-10 offset-md-1"> {/* Adjust the column size here */}
           <h1 className="mb-4">Frequently Asked Questions</h1>
