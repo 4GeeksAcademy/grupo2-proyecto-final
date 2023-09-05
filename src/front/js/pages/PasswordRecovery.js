@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import mov_iconlogo from "../../img/mov+icon.png"
 
 const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
@@ -7,18 +8,18 @@ const PasswordRecovery = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para enviar un correo de recuperación de contraseña
-    // Por ahora, simplemente mostraremos un mensaje de éxito ficticio
+    // agregar la lógica para enviar un correo de recuperación de contraseña
+
     setMessage("Check your email for password reset instructions.");
     setIsSubmitted(true);
   };
 
   return (
-    <div className="container">
+    <div className="container mt-5"> {/* Aumenta el margen en la parte superior */}
       <div className="row">
         <div className="col-md-6 offset-md-3 text-center">
           <img
-            src=""
+            src={mov_iconlogo}
             alt="MOV+"
             className="img-fluid mb-4"
           />
