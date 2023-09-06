@@ -170,13 +170,14 @@ def add_to_watchlater(movie_id):
 
     # Checks if it was already added to the Watch Later list by the user
     existing_movie = WatchLater.query.filter_by(
-        user_id=user_id, id=movie_id).first()
+        user_id=user_id, movie_id=movie_data['id']).first()
     if existing_movie:
-        return jsonify({'message': 'This movie has already been added by the user'}), 409
+        raise APIException('This movie has already been added', status_code=409)
 
     # Creates a new Watch Later record
     new_movie = WatchLater(
         user_id=user_id,
+        movie_id=movie_data['id'],
         title=movie_data['title'],
         overview=movie_data['overview'],
         poster_path=movie_data['poster_path'],

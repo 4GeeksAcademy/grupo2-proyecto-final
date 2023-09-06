@@ -18,9 +18,10 @@ class User(db.Model):
         }
 
 class WatchLater(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship(User)
+    movie_id = db.Column(db.Integer, nullable=False, unique=True) 
     title = db.Column(db.String(250), nullable=False)
     overview = db.Column(db.Text)
     release_date = db.Column(db.String(20))
@@ -36,6 +37,7 @@ class WatchLater(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "movie_id": self.movie_id,
             "title": self.title,
             "overview": self.overview,
             "release_date": self.release_date,
@@ -44,5 +46,4 @@ class WatchLater(db.Model):
             "original_language": self.original_language,
             "poster_path": self.poster_path,
         }
-
     
