@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
@@ -8,7 +9,7 @@ function UserProfile() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!store.viewLogged) {
+        if (!store.token) {
             navigate("/restricted-access");
             return;
         }
@@ -20,7 +21,12 @@ function UserProfile() {
         try {
             // checks password is correct
             if (store.newPassword !== store.confirmPassword) {
-                alert("New password and confirmation password do not match.");
+                // Use SweetAlert2 for error messages while changing password
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Password Update Failed',
+                    text: 'New password and confirmation password do not match',
+                });
                 return;
             }
 
@@ -31,7 +37,6 @@ function UserProfile() {
             await actions.updateProfile(updatedData);
         } catch (error) {
             console.error("An error has occurred while changing your password:", error);
-            e.target.reset();
         }
     };
 
