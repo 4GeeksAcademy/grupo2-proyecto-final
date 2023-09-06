@@ -21,7 +21,7 @@ class WatchLater(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship(User)
-    movie_id = db.Column(db.Integer, nullable=False, unique=True) 
+    movie_id = db.Column(db.Integer, nullable=False) 
     title = db.Column(db.String(250), nullable=False)
     overview = db.Column(db.Text)
     release_date = db.Column(db.String(20))
