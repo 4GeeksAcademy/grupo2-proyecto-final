@@ -152,7 +152,7 @@ def get_user_watch_later(user_id):
     }
     return jsonify(response_body), 200
 
-# Adds a movie to the user's watch later list
+# Adds a movie to the user's watchlist
 @api.route('/playlist/<int:movie_id>', methods=['POST'])
 def add_to_watchlater(movie_id):
     body = request.get_json(silent=True)
