@@ -381,11 +381,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// adds a movie to the user's watch later list
+			// adds a movie to the user's watchlist
 			addToWatchLater: async (selectedItem) => {
 				const token = localStorage.getItem("token");
 				setStore({ token: token });
-				console.log("Adding to Watch Later list:", selectedItem);
+				console.log("Adding to Watchlist:", selectedItem);
 				const user_id = getStore().user_id;
 				if (!user_id) {
 					console.log("Please enter the user id");
@@ -429,16 +429,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 								title: 'The movie was added successfully',
 							});
 							console.log("A movie was added to Watchlist successfully");
-						} else {
-							console.log(data.message);
-							// Use SweetAlert2 for error messages when adding movies to the watchlist
-							Swal.fire({
-								icon: 'error',
-								title: 'This movie was already added',
-							});
 						}
 					} else {
-						console.log("Request failed with status:", resp.status);
+						console.log("Movie Already Added", resp.status);
+						// Use SweetAlert2 for error messages when adding movies to the watchlist
+						Swal.fire({
+							icon: 'error',
+							title: 'This movie was already added',
+						});
 					}
 				} catch (err) {
 					console.error("An error has occurred:", err);
