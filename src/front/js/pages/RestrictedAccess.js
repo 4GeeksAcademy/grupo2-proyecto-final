@@ -2,7 +2,7 @@ import React from "react";
 
 const RestrictedAccess = () => {
   return (
-    <div className="container mt-5">
+    <div className="container policy-container mt-5">
       <div className="row">
         <div className="col-md-8 offset-md-2">
           <div className="text-center">

@@ -1,17 +1,27 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import "../../styles/MovieView.css";
 
 const SingleMovie = () => {
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [selectedMovie, setSelectedMovie] = useState("");
     const API_key = "491c31c8a0eb95d5d79ed9ed60929455";
     const movie_id = "808";
     const params = useParams();
 
+    // Redirect to restricted page if not logged in
+    useEffect(() => {
+        if (!store.viewLogged) {
+            navigate("/restricted-access");
+            return;
+        }; 
+    })
+
     // Fetch Movie information
     useEffect(() => {
+
         const fetchMovie = async () => {
             try {
                 const response = await fetch(

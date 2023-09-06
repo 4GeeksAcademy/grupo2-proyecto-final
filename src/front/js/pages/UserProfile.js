@@ -28,7 +28,6 @@ function UserProfile() {
                 currentPassword: store.currentPassword,
                 newPassword: store.newPassword,
             };
-
             await actions.updateProfile(updatedData);
         } catch (error) {
             console.error("An error has occurred while changing your password:", error);
