@@ -8,7 +8,7 @@ function Movies() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!store.viewLogged) {
+        if (!store.token) {
             navigate("/restricted-access");
             return;
         }

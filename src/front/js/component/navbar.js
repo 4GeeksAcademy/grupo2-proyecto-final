@@ -9,7 +9,7 @@ export const Navbar = () => {
 
 	return (
 
-		(store.viewLogged === false) ?
+		(!store.token) ?
 
 			(<nav className="navbar navbar-expand-lg navbar-dark fixed-top">
 				<div className="container">

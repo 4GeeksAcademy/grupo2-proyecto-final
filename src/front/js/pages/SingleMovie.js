@@ -13,10 +13,10 @@ const SingleMovie = () => {
 
     // Redirect to restricted page if not logged in
     useEffect(() => {
-        if (!store.viewLogged) {
+        if (!store.token) {
             navigate("/restricted-access");
             return;
-        }; 
+        };
     })
 
     // Fetch Movie information
