@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Context } from '../store/appContext';
 import movplusImageUrl from "../../img/mov+icon.png";
 import avatarImageUrl from "../../img/avatar.png";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
+	const location = useLocation();
 
 	return (
 
@@ -30,9 +31,15 @@ export const Navbar = () => {
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mb-2 mb-lg-0 navbar-list not-logged-link">
 							<li className="nav-item">
-								<Link className="nav-link nav-link-signin" to="/login">
-									Sign In
-								</Link>
+								{/* Renders sign up if it is login page */}
+								{
+									(location.pathname === "/login") ?
+										(<Link className="nav-link nav-link-signin" to="/signup">
+											Sign Up
+										</Link>) : (<Link className="nav-link nav-link-signin" to="/login">
+											Sign In
+										</Link>)
+								}
 							</li>
 						</ul>
 					</div>
