@@ -14,14 +14,13 @@
 }
 
 .nav-item {
-    margin-right: 1rem;
     font-size: 1.2rem;
     font-weight: 600;
 }
 
 .nav-link {
     font-family: "Open Sans";
-    color: #cccccc !important;
+    color: white !important;
 }
 
 .nav-link:hover,
@@ -32,7 +31,6 @@
 
 .dropdown-logout-btn {
     text-decoration: none;
-    color: inherit;
 }
 
 .not-logged-link {
@@ -57,4 +55,8 @@
 .dropdown-item,
 .dropdown-divider {
     color: white;
+}
+
+.dropdown-toggle::after {
+    display: none;
 }
