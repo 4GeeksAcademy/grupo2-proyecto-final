@@ -13,6 +13,7 @@ from flask_jwt_extended import jwt_required
 
 api = Blueprint('api', __name__)
 
+
 @api.route('/signup', methods=['POST'])
 def signup():
     body = request.get_json(silent=True)
@@ -85,14 +86,15 @@ def get_single_user(user_id):
     }
     return jsonify(response_body), 200
 
-#Updates user's password
+# Updates user's password
 @api.route('/updatepassword', methods=['PUT'])
 @jwt_required()
 def update_password():
     user_email = get_jwt_identity()
     body = request.get_json(silent=True)
     if body is None:
-        raise APIException("You must send information in the body", status_code=400)
+        raise APIException(
+            "You must send information in the body", status_code=400)
 
     if "current_password" not in body or not body["current_password"]:
         raise APIException("Current password is required", status_code=422)
@@ -109,7 +111,8 @@ def update_password():
         raise APIException("Current password is incorrect", status_code=400)
 
     # Update the user's password with the new one
-    user.password = generate_password_hash(body["new_password"]).decode("utf-8")
+    user.password = generate_password_hash(
+        body["new_password"]).decode("utf-8")
     db.session.commit()
 
     return jsonify({"message": "Password updated successfully"}), 200
@@ -149,29 +152,32 @@ def get_user_watch_later(user_id):
     }
     return jsonify(response_body), 200
 
-# Adds a movie to the user's watch later list
+# Adds a movie to the user's watchlist
 @api.route('/playlist/<int:movie_id>', methods=['POST'])
 def add_to_watchlater(movie_id):
     body = request.get_json(silent=True)
     if body is None:
-        raise APIException('You must send information inside the body', status_code=400)
+        raise APIException(
+            'You must send information inside the body', status_code=400)
     if 'user_id' not in body:
         raise APIException('You must send the user id', status_code=400)
-    
+
     user_id = body['user_id']
     movie_data = body['movie_data']
 
     print("user_id:", user_id)
     print("movie_data:", movie_data)
-        
+
     # Checks if it was already added to the Watch Later list by the user
-    existing_movie = WatchLater.query.filter_by(user_id=user_id, id=movie_id).first()
+    existing_movie = WatchLater.query.filter_by(
+        user_id=user_id, movie_id=movie_data['id']).first()
     if existing_movie:
-        return jsonify({'message': 'This movie has already been added by the user'}), 409
-    
+        raise APIException('This movie has already been added', status_code=409)
+
     # Creates a new Watch Later record
     new_movie = WatchLater(
         user_id=user_id,
+        movie_id=movie_data['id'],
         title=movie_data['title'],
         overview=movie_data['overview'],
         poster_path=movie_data['poster_path'],
@@ -184,7 +190,7 @@ def add_to_watchlater(movie_id):
     # Adds the new movie to the Watch Later list
     db.session.add(new_movie)
     db.session.commit()
-    
+
     return jsonify({'message': 'Movie was added to the Watch Later list successfully'}), 201
 
 # Removes a movie from the user's Watch Later list
@@ -197,4 +203,3 @@ def delet_from_watchlater(movie_id):
     db.session.delete(watchlater_movie)
     db.session.commit()
     return jsonify({'msg': 'A movie was removed successfully'}), 200
-

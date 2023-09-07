@@ -1,3 +1,17 @@
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+	toast: true,
+	position: 'top-end',
+	showConfirmButton: false,
+	timer: 3000,
+	timerProgressBar: true,
+	didOpen: (toast) => {
+		toast.addEventListener('mouseenter', Swal.stopTimer)
+		toast.addEventListener('mouseleave', Swal.resumeTimer)
+	}
+});
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -7,7 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user_id: null,
 			email: null,
 			password: null,
-			token: null,
+			token: "",
 			currentPassword: "",
 			newPassword: "",
 			confirmPassword: "",
@@ -47,10 +61,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data);
 
 					if (resp.status == 200) {
-						localStorage.setItem("token", data.access_token)
-						setStore({ viewLogged: true, user_id: data.user_id })
-					} else alert(data.message);
-
+						localStorage.setItem("token", data.access_token);
+						setStore({ viewLogged: true, user_id: data.user_id, token: data.access_token });
+						// Use SweetAlert2 for success login in message
+						Toast.fire({
+							icon: 'success',
+							title: 'Log In Successful',
+						});
+					} else {
+						// Use SweetAlert2 for error messages
+						Swal.fire({
+							icon: 'error',
+							title: 'Log In Failed',
+							text: data.message,
+						});
+					}
 				} catch (err) {
 					console.error("An error has occurred during login", err);
 				}
@@ -58,7 +83,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			signUp: async (email, password) => {
 				if (!email || !password) {
-					alert("Please enter both email and password");
+					// Use SweetAlert2 for error messages while signing up
+					Swal.fire({
+						icon: 'error',
+						title: 'Sign Up Failed',
+						text: 'Please enter both email and password',
+					});
 				}
 				try {
 					const options = {
@@ -77,10 +107,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data);
 
 					if (resp.status == 200) {
-						alert("User registered successfully")
+						// Use SweetAlert2 for sign up success message
+						Toast.fire({
+							icon: 'success',
+							title: 'Sign Up Successful',
+						});
 						setStore({ viewSignUp: true })
 					} else {
-						alert(data.message);
+						// Use SweetAlert2 for error messages while signing up
+						Swal.fire({
+							icon: 'error',
+							title: 'Sign Up Failed',
+							text: data.message,
+						});
 					}
 
 				} catch (err) {
@@ -118,7 +157,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: token });
 
 				if (!token) {
-					alert("You are not logged in. Please log in to update your password.");
+					// Use SweetAlert2 for error message when not logged in
+					Swal.fire({
+						icon: 'error',
+						title: 'You Must Log In First',
+						text: 'You are not logged in. Please log in to update your password',
+					});
 					return;
 				}
 
@@ -140,9 +184,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data);
 
 					if (resp.status == 200) {
-						alert("Password updated successfully")
+						// Use SweetAlert2 for successful password change message
+						Toast.fire({
+							icon: 'success',
+							title: 'Password updated successfully',
+						});
 					} else {
-						alert(data.message);
+						// Use SweetAlert2 for error messages while changing password
+						Swal.fire({
+							icon: 'error',
+							title: 'Password Update Failed',
+							text: data.message,
+						});
 					}
 
 				} catch (err) {
@@ -152,7 +205,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () => {
 				localStorage.clear();
-				setStore({ viewLogged: false })
+				setStore({ viewLogged: false, token: "" })
 			},
 
 			toggleSignUp: (value) => {
@@ -328,11 +381,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// adds a movie to the user's watch later list
+			// adds a movie to the user's watchlist
 			addToWatchLater: async (selectedItem) => {
 				const token = localStorage.getItem("token");
 				setStore({ token: token });
-				console.log("Adding to Watch Later list:", selectedItem);
+				console.log("Adding to Watchlist:", selectedItem);
 				const user_id = getStore().user_id;
 				if (!user_id) {
 					console.log("Please enter the user id");
@@ -370,14 +423,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const watchLaterPlaylist = getStore().watchLaterList;
 						if (!watchLaterPlaylist.some(item => item.id === selectedItem.id)) {
 							setStore({ watchLaterList: [...watchLaterPlaylist, selectedItem] });
-							alert("A movie was added to the Watch Later list successfully");
-							console.log("A movie was added to the Watch Later list successfully");
-						} else {
-							console.log(data.message);
-							alert("This movie was already added");
+							// Use SweetAlert2 to alert when movie is added successfully
+							Toast.fire({
+								icon: 'success',
+								title: 'The movie was added successfully',
+							});
+							console.log("A movie was added to Watchlist successfully");
 						}
 					} else {
-						console.log("Request failed with status:", resp.status);
+						console.log("Movie Already Added", resp.status);
+						// Use SweetAlert2 for error messages when adding movies to the watchlist
+						Swal.fire({
+							icon: 'error',
+							title: 'This movie was already added',
+						});
 					}
 				} catch (err) {
 					console.error("An error has occurred:", err);
@@ -406,8 +465,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const listOfFavorites = getStore().favorites;
 						setStore({ favorites: listOfFavorites.filter((item) => item.id !== selectedFavorite.id) });
 						console.log("The movie was removed from favorites");
+						// Use SweetAlert2 to alert when movie is deleted successfully
+						Toast.fire({
+							icon: 'success',
+							title: 'The movie was deleted successfully',
+						});
 					} else {
 						console.log("Request failed with status:", resp.status);
+						// Use SweetAlert2 for error messages when adding movies to the watchlist
+						Swal.fire({
+							icon: 'error',
+							title: "The movie was already deleted",
+						});
 					}
 				} catch (err) {
 					console.error("An error has occurred:", err);

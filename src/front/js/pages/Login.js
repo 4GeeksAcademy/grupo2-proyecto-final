@@ -13,7 +13,7 @@ function Login() {
 
         try {
             await actions.login(email, password);
-            if (store.viewLogged) {
+            if (store.token) {
                 navigate("/movies");
             } else null;
         } catch (error) {

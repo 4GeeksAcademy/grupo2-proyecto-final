@@ -19,9 +19,8 @@ function SignUp() {
 
         } catch (error) {
             console.error("An error occurred during signup:", error);
+            e.target.reset();
         }
-
-        e.target.reset();
     };
 
     return (
