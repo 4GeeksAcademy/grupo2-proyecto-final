@@ -2,7 +2,6 @@ import React from "react";
 import mov_iconlogo from "../../img/mov+icon.png";
 import "../../styles/footer.css";
 
-
 export const Footer = () => (
   <footer className="movie-footer">
     <div className="footer-content">
@@ -10,17 +9,25 @@ export const Footer = () => (
         <img src={mov_iconlogo} />
       </div>
       <div className="footer-links">
-        <a href="/terms-of-use">Terms of Use</a>
+        <a href="/terms-of-use" style={{ fontSize: "19px" }}>
+          Terms of Use
+        </a>
       </div>
       <div className="footer-links">
-        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/privacy-policy" style={{ fontSize: "19px" }}>
+          Privacy Policy
+        </a>
       </div>
       <div className="footer-links">
-        <a href="/faqs">FAQs</a>
+        <a href="/faqs" style={{ fontSize: "19px" }}>
+          FAQs
+        </a>
       </div>
     </div>
     <div className="attribution">
-      <p>&copy; {new Date().getFullYear()} MOV+ | All rights reserved</p>
+      <p style={{ fontSize: "19px" }}>
+        &copy; {new Date().getFullYear()} MOV+ | All rights reserved
+      </p>
     </div>
   </footer>
 );
