@@ -21,9 +21,7 @@ const RestrictedAccess = () => {
           </div>
         </div>
       </div>
-      <footer className="footer">
-        {/* Contenido del footer */}
-      </footer>
+      <footer className="footer" />
     </div>
   );
 };
