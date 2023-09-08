@@ -55,14 +55,9 @@
     font-size: 2rem;
     font-weight: 400;
     letter-spacing: 1.8px;
-    transition: all 0.5s;
     cursor: pointer;
     margin-top: 3vh;
     box-shadow: 0 10px 20px -8px rgba(0, 0, 0, .7);
-}
-
-.signup-btn {
-    cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;

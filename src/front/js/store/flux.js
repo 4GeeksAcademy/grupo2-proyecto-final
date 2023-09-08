@@ -81,7 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			signUp: async (email, password) => {
+			signUp: async (email, password, confirmPassword) => {
 				if (!email || !password) {
 					// Use SweetAlert2 for error messages while signing up
 					Swal.fire({
@@ -98,7 +98,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						body: JSON.stringify({
 							"email": email,
-							"password": password
+							"password": password,
+							"confirm_password": confirmPassword
 						})
 					};
 

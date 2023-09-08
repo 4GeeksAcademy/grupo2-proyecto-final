@@ -98,6 +98,12 @@
     will-change: transform;
 }
 
+/* button effect when clicking it */
+.login-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0px 10px 20px -81px rgba(0, 0, 0, 0.24);
+}
+
 /* signup link underneath of login button */
 .signup-link,
 .signup-redirect {

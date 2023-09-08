@@ -6,13 +6,14 @@ function SignUp() {
     const { store, actions } = useContext(Context);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await actions.signUp(email, password);
+            await actions.signUp(email, password, confirmPassword);
             if (store.viewSignUp) {
                 navigate("/login");
             }
@@ -34,7 +35,7 @@ function SignUp() {
                             type="email"
                             className="signup-form-control"
                             id="inputEmail"
-                            placeholder="Enter an Email Address"
+                            placeholder="Email Address"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -45,9 +46,20 @@ function SignUp() {
                             type="password"
                             className="signup-form-control"
                             id="inputPassword"
-                            placeholder="Enter a Password"
+                            placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="signup-form-group">
+                        <label htmlFor="inputPassword" className="signup-label">Repeat Password</label>
+                        <input
+                            type="password"
+                            className="signup-form-control"
+                            id="inputPassword"
+                            placeholder="Repeat Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
                 </div>

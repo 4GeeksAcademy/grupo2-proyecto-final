@@ -26,6 +26,10 @@ def signup():
     if "password" not in body:
         raise APIException(
             "You must send the password in the body", status_code=422)
+    # Check if the password matches
+    if body["password"] != body["confirm_password"]:
+        raise APIException("Passwords don't match", status_code=400)
+    
     pw_hash = generate_password_hash(body["password"]).decode("utf-8")
     new_user = User(email=body["email"], password=pw_hash, is_active=True)
     db.session.add(new_user)
