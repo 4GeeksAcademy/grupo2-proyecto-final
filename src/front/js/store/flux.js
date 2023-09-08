@@ -214,7 +214,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () => {
 				localStorage.clear();
-				setStore({ viewLogged: false, token: "" })
+				setStore({ viewLogged: false, token: "" });
 			},
 
 			toggleSignUp: (value) => {
