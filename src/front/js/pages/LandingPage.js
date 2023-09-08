@@ -1,4 +1,5 @@
 import React from 'react'
+import landingBg from "../../img/LandingPageBg.png";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { Link } from 'react-router-dom';
 import "../../styles/LandinP.css";
@@ -8,15 +9,10 @@ export const landingPage = () => {
     return (
         <>
             <div className='landingPageStyle'>
-                <span className='landHeader'>
-                    <img src="https://www.edigitalagency.com.au/wp-content/uploads/netflix-logo-white-png.png" />
-                    <Link to={"/login"}>
-                        <button type="button" class="btn btn-lg">Sign In</button>
-                    </Link>
-                </span>
-                <div className='landBody'>
+                <div className='landHeader'>
                     <div className='container'>
                         <div className='text-center'>
+                            <div className='space'></div>
                             <h1>Unlimited Movies, TV shows and more. </h1>
                             <h3>Watch anywhere. Cancel anytime. </h3>
                             <h5>Ready to watch? Subscribe now! </h5>
@@ -28,17 +24,18 @@ export const landingPage = () => {
                         </div>
                     </div>
                     <div className='linep' />
+                </div>
+                <div className='landBody'>
                     <section className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <h4>Not sure what to watch?</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus
+                                Get the best movies recomendations, made just for <span style={{ color: "#F2D649" }} >you.</span>
                             </p>
                         </div>
-
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="firstsection">
-                                <img src={rigoImageUrl} />
+                                <img src="https://create.vista.com/s3-static/create/uploads/2022/09/make-vintage-poster-online-900x891-1.webp" />
                             </div>
                         </div>
                     </section>
@@ -46,13 +43,13 @@ export const landingPage = () => {
                     <section className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="secsection">
-                                <img src={rigoImageUrl} />
+                                <img src="https://getitem.com/images/g5.png" />
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-6 col-sm-12">
+                        <div className="col-lg-5 col-md-6 col-sm-12">
                             <h4>Easy to access</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus
+                                
                             </p>
                         </div>
                     </section>
