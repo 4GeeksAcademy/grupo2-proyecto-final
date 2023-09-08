@@ -16,7 +16,7 @@ const PasswordRecovery = () => {
   };
 
   return (
-    <div className="main-container">
+    <div className="main-container mt-5">
       <div className="content">
         <div className="container mt-5">
           <div className="row">
