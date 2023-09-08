@@ -6,9 +6,10 @@ import Card from '../component/Card';
 function Movies() {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
-        if (!store.token) {
+        if (!token) {
             navigate("/restricted-access");
             return;
         }
