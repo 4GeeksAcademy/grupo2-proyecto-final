@@ -10,14 +10,15 @@ const SingleMovie = () => {
     const API_key = "491c31c8a0eb95d5d79ed9ed60929455";
     const movie_id = "808";
     const params = useParams();
+    const token = localStorage.getItem("token");
 
     // Redirect to restricted page if not logged in
     useEffect(() => {
-        if (!store.token) {
+        if (!token) {
             navigate("/restricted-access");
             return;
         };
-    })
+    }, [])
 
     // Fetch Movie information
     useEffect(() => {

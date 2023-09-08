@@ -43,6 +43,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			sectionTitle: "Popular Movies",
 		},
 		actions: {
+
+			syncTokenFromLocalStorage: () => {
+				const token = localStorage.getItem("token");
+				if (token && token !== "" && token !== undefined && token !== null) {
+					setStore({ token: token });
+				}
+			},
+
 			login: async (email, password) => {
 				try {
 					const options = {

@@ -13,7 +13,7 @@ function UserProfile() {
             navigate("/restricted-access");
             return;
         }
-    });
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
