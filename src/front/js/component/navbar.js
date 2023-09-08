@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Context } from '../store/appContext';
+import Lottie from 'react-lottie';
+import animationData from '../../img/avatar.json';
 import movplusImageUrl from "../../img/mov+icon.png";
 import avatarImageUrl from "../../img/avatar.png";
 
@@ -8,14 +10,30 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	const location = useLocation();
 
+	// Lottie icons configurations
+	const options = {
+		loop: false,
+		autoplay: false,
+		animationData: animationData,
+		rendererSettings: {
+			preserveAspectRatio: "xMidYMid slice",
+			height: "3rem",
+			width: "3rem",
+			className: "lottie-svg-class",
+			id: "lottie-svg-id"
+		}
+	};
+
+	const [stopped, setStopped] = useState(true);
+
 	return (
 
 		(!store.token) ?
-		// Navbar when logged out
+			// Navbar when logged out
 			(<nav className="navbar navbar-expand-lg fixed-top">
 				<div className="container-fluid justify-content-between">
 					<div className="d-flex">
-						<a className="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+						<a className="navbar-brand me-2 mb-1 d-flex align-items-center" href="/">
 							<img
 								src={movplusImageUrl}
 								style={{ height: "3rem", marginTop: "2px" }}
@@ -88,9 +106,16 @@ export const Navbar = () => {
 								role="button"
 								data-bs-toggle="dropdown"
 								aria-expanded="false"
+								onMouseEnter={() => { setStopped(false) }}
+								onMouseLeave={() => { setStopped(true) }}
 							>
-								<img src={avatarImageUrl} style={{ height: "2.5rem" }} alt="Avatar" />&nbsp;
-								<i class="fas fa-chevron-circle-down fa-sm"></i>
+								{/* Testing Lottie */}
+								<span className="d-flex">
+									<Lottie options={options} isClickToPauseDisabled isStopped={stopped} />&nbsp;
+									<i className="fas fa-chevron-circle-down fa-sm"></i>
+								</span>
+								{/* <img src={avatarImageUrl} style={{ height: "2.5rem" }} alt="Avatar" />&nbsp; */}
+								{/* <i className="fas fa-chevron-circle-down fa-sm"></i> */}
 							</a>
 							<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 								<li>

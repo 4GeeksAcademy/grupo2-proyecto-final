@@ -336,6 +336,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					recommendations: true,
 				});
 				getActions().fetchPopularMovies();
+				getActions().setSectionTitle("Popular Movies");
 			},
 
 			// stores the data selected in the filter selectors to the global state
@@ -443,8 +444,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// deletes a movie to the user's watch later listt
-			deleteFavorites: async (selectedFavorite) => {
+			// deletes a movie from the user's watchlist
+			deleteFromWatchList: async (selectedMovie) => {
 				const token = localStorage.getItem("token");
 				setStore({ token: token });
 
@@ -457,14 +458,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 					};
 
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/playlist/${selectedFavorite.id}`, options);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/playlist/${selectedMovie.id}`, options);
 
 					if (resp.ok) {
 						const data = await resp.json();
 						console.log(data.message);
-						const listOfFavorites = getStore().favorites;
-						setStore({ favorites: listOfFavorites.filter((item) => item.id !== selectedFavorite.id) });
-						console.log("The movie was removed from favorites");
+						const watchLaterPlaylist = getStore().watchLaterList;
+						setStore({ watchLaterList: watchLaterPlaylist.filter((item) => item.id !== selectedMovie.id) });
+						console.log("The movie was removed from watchlist");
 						// Use SweetAlert2 to alert when movie is deleted successfully
 						Toast.fire({
 							icon: 'success',
