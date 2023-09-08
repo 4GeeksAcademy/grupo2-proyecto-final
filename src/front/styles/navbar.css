@@ -18,9 +18,17 @@
     font-weight: 600;
 }
 
+.nav-item-mobile {
+    text-align: right;
+}
+
 .nav-link {
     font-family: "Open Sans";
     color: white !important;
+}
+
+.nav-link:active {
+    color: #FBBC04 !important;
 }
 
 .nav-link:hover,
@@ -41,6 +49,15 @@
 .nav-link-signin {
     color: #FBBC04 !important;
     font-family: "Open Sans";
+}
+
+.nav-link-logout {
+    cursor: pointer;
+}
+
+.nav-link-logout:hover,
+.nav-link-logout:active {
+    color: red !important;
 }
 
 .fa-arrow-right-from-bracket,

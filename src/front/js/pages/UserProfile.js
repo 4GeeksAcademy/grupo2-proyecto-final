@@ -7,13 +7,15 @@ import "../../styles/userprofile.css";
 function UserProfile() {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
+    // Redirect to restricted page if not logged in
     useEffect(() => {
-        if (!store.token) {
+        if (!token) {
             navigate("/restricted-access");
             return;
-        }
-    }, []);
+        };
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
