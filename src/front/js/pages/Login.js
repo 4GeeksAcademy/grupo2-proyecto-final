@@ -24,7 +24,7 @@ function Login() {
 
     return (
         <div className="login-container">
-            <form className="login-form m-auto" onSubmit={handleSubmit}>
+            <form className="login-form login-box m-auto" onSubmit={handleSubmit}>
                 <h1 className="login-form-title">Sign In</h1>
                 <div className="login-form-group mb-3">
                     <input
@@ -48,11 +48,15 @@ function Login() {
                 </div>
                 <div className="login-btn-section">
                     <button type="submit" className="login-btn">Login</button>
-                    <div><small className="signup-link">Don't have an account?&nbsp;
-                        <Link to={"/signup"} className="signup-redirect">
-                            <i>Sign up now.</i>
-                        </Link>
-                    </small></div>
+                    <div>
+                        <span>
+                            <small className="signup-link">
+                                <Link to={"/password-recovery"} className="signup-redirect">
+                                    Forgot Password?
+                                </Link>
+                            </small>
+                        </span>
+                    </div>
                 </div>
             </form>
         </div>
