@@ -70,6 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (resp.status == 200) {
 						localStorage.setItem("token", data.access_token);
+						localStorage.setItem("user_id", data.user_id);
 						setStore({ viewLogged: true, user_id: data.user_id, token: data.access_token });
 						// Use SweetAlert2 for success login in message
 						Toast.fire({
@@ -136,30 +137,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			private: async () => {
-				const token = localStorage.getItem("token");
-				setStore({ token: token });
-
-				try {
-					const options = {
-						method: 'GET',
-						headers: {
-							"Content-Type": "application/json",
-							"Authorization": "Bearer " + token
-						}
-					};
-
-					const resp = await fetch(process.env.BACKEND_URL + "/api/private", options);
-					const data = await resp.json();
-					setStore({ loggedUser: data.User });
-					console.log(store.loggedUser);
-				}
-
-				catch (err) {
-					console.error("An error has occurred", err);
-				}
-			},
-
 			//update user information
 			updateProfile: async (updatedData) => {
 				const token = localStorage.getItem("token");
@@ -214,7 +191,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () => {
 				localStorage.clear();
-				setStore({ viewLogged: false, token: "" });
+				setStore({ viewLogged: false, token: "", user_id: null });
 			},
 
 			toggleSignUp: (value) => {
@@ -391,12 +368,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// stores watchlist
+			setWatchLaterList: (watchLaterList) => {
+				setStore({ watchLaterList });
+			},
+
 			// adds a movie to the user's watchlist
 			addToWatchLater: async (selectedItem) => {
+				const user_id = localStorage.getItem("user_id");
 				const token = localStorage.getItem("token");
-				setStore({ token: token });
+				setStore({ token: token, user_id: user_id });
 				console.log("Adding to Watchlist:", selectedItem);
-				const user_id = getStore().user_id;
+
 				if (!user_id) {
 					console.log("Please enter the user id");
 					return;
@@ -453,6 +436,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// retrieves user's watchlist
+			fetchWatchLaterMovies: async () => {
+				const token = localStorage.getItem("token");
+				const user_id = localStorage.getItem("user_id");
+				setStore({ token: token, user_id: user_id });
+
+				try {
+					const options = {
+						method: 'GET',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+					};
+
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/user/playlist/${user_id}`, options);
+
+					if (resp.ok) {
+						const data = await resp.json();
+						getActions().setWatchLaterList(data.results);
+						console.log("Watchlist fetched successfully:", data.results);
+					} else {
+						console.error('Error occurred while fetching the watchlist');
+						// Use SweetAlert2 for error messages when viewing the watchlist
+						Swal.fire({
+							icon: 'error',
+							title: 'An error occurred while fetching the watchlist',
+						});
+					}
+				} catch (error) {
+					console.error('Error occurred while fetching the watchlist', error);
+				}
+			},
+
 			// deletes a movie from the user's watchlist
 			deleteFromWatchList: async (selectedMovie) => {
 				const token = localStorage.getItem("token");
@@ -467,7 +484,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 					};
 
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/playlist/${selectedMovie.id}`, options);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/playlist/${selectedMovie.movie_id}`, options);
 
 					if (resp.ok) {
 						const data = await resp.json();
@@ -482,7 +499,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						});
 					} else {
 						console.log("Request failed with status:", resp.status);
-						// Use SweetAlert2 for error messages when adding movies to the watchlist
+						// Use SweetAlert2 for error messages when deleting movies from the watchlist
 						Swal.fire({
 							icon: 'error',
 							title: "The movie was already deleted",

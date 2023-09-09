@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import PropTypes from 'prop-types';
 
-const Card = ({ movie, user_id, onRemoveFromWatchLater }) => {
+const Card = ({ movie, user_id }) => {
     const { store, actions } = useContext(Context);
     const location = useLocation();
 
@@ -22,19 +22,19 @@ const Card = ({ movie, user_id, onRemoveFromWatchLater }) => {
             vote_average: movie.vote_average,
         });
     };
-    
-    const handleRemoveFromWatchLater = () => {
-        onRemoveFromWatchLater(movie.id);
+
+    const handleRemoveFromWatchLater = async () => {
+        actions.deleteFromWatchList(movie);
     };
 
     const showWatchLaterIcon = () => {
-        if (currentPage.includes('/movie')) {
+        if (currentPage.includes('/movies')) {
             return (
                 <button type="button" className="btn btn-danger" onClick={handleAddToWatchLater}>
                     <i className="fas fa-eye"></i>
                 </button>
             );
-        } else if (currentPage.includes('/playlist')) {
+        } else if (currentPage.includes('/watchlist')) {
             return (
                 <button type="button" className="btn btn-light" onClick={handleRemoveFromWatchLater}>
                     <i className="fas fa-trash"></i>
@@ -44,7 +44,7 @@ const Card = ({ movie, user_id, onRemoveFromWatchLater }) => {
             return null;
         }
     };
-    
+
     return (
         <div className="card movies-card">
             <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
@@ -71,7 +71,7 @@ const Card = ({ movie, user_id, onRemoveFromWatchLater }) => {
 
 Card.propTypes = {
     movie: PropTypes.object.isRequired,
-    user_id: PropTypes.number,
+    user_id: PropTypes.string,
 };
 
 export default Card;
