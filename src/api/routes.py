@@ -58,13 +58,6 @@ def login():
     }
     return jsonify(response_data), 200
 
-
-@api.route('/private', methods=['GET'])
-@jwt_required()
-def private():
-    logged_user = get_jwt_identity()
-    return jsonify({"User": logged_user}), 200
-
 # Gets the list of users
 @api.route('/user', methods=['GET'])
 def get_users():
@@ -121,27 +114,29 @@ def update_password():
 
     return jsonify({"message": "Password updated successfully"}), 200
 
-# Gets the list of movies added to all Watch Later lists
+# Gets the list of movies added to all Watchlists
 @api.route('/movie', methods=['GET'])
 def get_movies():
     movies = WatchLater.query.all()
     movies_serialized = list(map(lambda x: x.serialize(), movies))
     return jsonify({'msg': 'Completed', 'movies': movies_serialized}), 200
 
-# Checks current user's Watch Later list
+# Checks current user's Watchlist
 @api.route('/user/playlist/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_user_watch_later(user_id):
-    user_watch_later = WatchLater.query.filter_by(user_id=user_id).all()
-    if not user_watch_later:
+    user_watchlist = WatchLater.query.filter_by(user_id=user_id).all()
+    if not user_watchlist:
         raise APIException(
-            f"User with id {user_id} has no movies in Watch Later", status_code=400)
+            f"User with id {user_id} has no movies in their watchlist", status_code=400)
 
     watchlater_list_info = []
-    for movie in user_watch_later:
+    for movie in user_watchlist:
         movie = WatchLater.query.get(movie.id)
         if movie:
             movie_info = {
                 'id': movie.id,
+                'movie_id': movie.movie_id,
                 'title': movie.title,
                 'overview': movie.overview,
                 'runtime': movie.runtime,
@@ -158,7 +153,8 @@ def get_user_watch_later(user_id):
 
 # Adds a movie to the user's watchlist
 @api.route('/playlist/<int:movie_id>', methods=['POST'])
-def add_to_watchlater(movie_id):
+@jwt_required()
+def add_to_watchlist(movie_id):
     body = request.get_json(silent=True)
     if body is None:
         raise APIException(
@@ -199,7 +195,8 @@ def add_to_watchlater(movie_id):
 
 # Removes a movie from the user's Watch Later list
 @api.route('/playlist/<int:movie_id>', methods=['DELETE'])
-def delet_from_watchlater(movie_id):
+@jwt_required()
+def delete_from_watchlist(movie_id):
     watchlater_movie = WatchLater.query.filter_by(movie_id=movie_id).first()
     if watchlater_movie is None:
         raise APIException(
