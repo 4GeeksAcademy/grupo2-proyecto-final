@@ -6,11 +6,53 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg, #000000 0%, #000000 0.01%, #1B0140 100%);
+
 }
+
+.landHeader {
+    background-image: linear-gradient(rgba(26, 4, 41, 0.76), rgba(0, 0, 0, 0.925)), url('https://hips.hearstapps.com/hmg-prod/images/movies-based-on-a-true-story-64e7c14b60826.jpg');
+    background-size: cover;
+    -webkit-animation: slidein 100s;
+    animation: slidein 50s;
+
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+}
+
+@-webkit-keyframes slidein {
+    from {
+        background-position: top;
+        background-size: 3000px;
+    }
+
+    to {
+        background-position: -100px 0px;
+        background-size: 2750px;
+    }
+}
+
+@keyframes slidein {
+    from {
+        background-position: top;
+        background-size: 3000px;
+    }
+
+    to {
+        background-position: -100px 0px;
+        background-size: 2750px;
+    }
+
+}
+
 
 .landingPageStyle h1 {
     color: #ffffff;
-    margin-top: 20%;
     font-weight: 700;
     font-size: 100px;
 }
@@ -21,6 +63,10 @@
     font-weight: 100;
     font-size: 50px;
 
+}
+
+.space {
+    padding: 12%;
 }
 
 .landingPageStyle h5 {
@@ -41,7 +87,7 @@
     color: #ffffff;
     margin-top: 20%;
     font-weight: 50;
-    font-size: 80px;
+    font-size: 8rem;
     margin-left: 2em;
     margin-top: 200px;
     font-style: italic;
@@ -56,30 +102,14 @@
 }
 
 .landingPageStyle p {
-    width: 600px;
-    top: 960px;
     font-weight: 100;
-    font-size: 40px;
-    line-height: 41px;
+    font-size: 5rem;
+    line-height: 5rem;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    margin-left: 4em;
+    margin-left: 16rem;
     margin-top: 20px;
     margin-bottom: 200px;
-}
-
-.landHeader button {
-    /* header */
-    margin-top: 20px;
-    float: right;
-    color: #ffffff;
-    margin-right: 100px;
-    background-color: #1B0140;
-}
-
-.landHeader button:hover {
-    color: white;
-    background-color: #35027e;
 }
 
 .btnsection button {
@@ -95,11 +125,6 @@
     font-size: 35px;
 }
 
-.btnsection button:hover {
-    color: white;
-    background-color: #35027e;
-}
-
 .faqbtn button {
     width: 9em;
     padding: 20px;
@@ -110,25 +135,18 @@
     margin-top: 20px;
 }
 
-.faqbtn button:hover {
-    color: white;
-    background-color: #26212c;
-}
-
-.landHeader img {
-    width: 10em;
-    margin-left: 4em;
-    margin-top: 30px;
-}
-
 .firstsection img {
     margin-top: 16%;
-    margin-left: 30%;
+    margin-bottom: 15%;
 }
 
 .secsection img {
-    margin-top: 16%;
-    margin-left: 30%;
+    margin-top: 12%;
+    width: 50rem;
+}
+
+.secsection {
+    padding: 15rem;
 }
 
 .faq {
@@ -139,7 +157,23 @@
     list-style: none;
     color: rgb(255, 255, 255);
     margin-top: 1%;
+
 }
+
+.header button {
+    /* header */
+    margin-top: 20px;
+    float: right;
+    color: #ffffff;
+    margin-right: 100px;
+    background-color: #1B0140;
+}
+
+.header button:hover {
+    color: white;
+    background-color: #35027e;
+}
+
 
 /* Line 1 */
 .linep {

@@ -9,37 +9,39 @@ export const landingPage = () => {
     return (
         <>
             <div className='landingPageStyle'>
-                <span className='landHeader'>
+                <span className='header'>
                     <img src={movplusImageUrl} style={{ height: "3rem" }} />
                     <Link to={"/login"}>
-                        <button type="button" className="btn btn-lg">Sign In</button>
+                        <button type="button" class="btn btn-lg">Sign In</button>
                     </Link>
                 </span>
-                <div className='landBody'>
+                <div className='landHeader'>
                     <div className='container'>
                         <div className='text-center'>
-                            <h1>Unlimited Movies, TV shows and more. </h1>
-                            <h3>Watch anywhere. Cancel anytime. </h3>
-                            <h5>Ready to watch? Subscribe now! </h5>
+                            <div className='space'></div>
+                            <h1>Get unlimited movies reccomendations. </h1>
+                            <h3>Access anywhere. </h3>
+                            <h5>Sign up, now! </h5>
                             <div className='btnsection'>
                                 <Link to={"/signup"}>
-                                    <button type="button" className="btn btn-lg">Get Started </button>
+                                    <button type="button" class="btn btn-lg">Get Started </button>
                                 </Link>
                             </div>
                         </div>
                     </div>
                     <div className='linep' />
+                </div>
+                <div className='landBody'>
                     <section className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <h4>Not sure what to watch?</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus
+                                Get the best movies recomendations, made just for <span style={{ color: "#F2D649" }} >you.</span>
                             </p>
                         </div>
-
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="firstsection">
-                                <img src={rigoImageUrl} />
+                                <img src="https://create.vista.com/s3-static/create/uploads/2022/09/make-vintage-poster-online-900x891-1.webp" />
                             </div>
                         </div>
                     </section>
@@ -47,13 +49,13 @@ export const landingPage = () => {
                     <section className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="secsection">
-                                <img src={rigoImageUrl} />
+                                <img src="https://getitem.com/images/g5.png" />
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-6 col-sm-12">
+                        <div className="col-lg-5 col-md-6 col-sm-12">
                             <h4>Easy to access</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus
+
                             </p>
                         </div>
                     </section>
@@ -89,7 +91,7 @@ export const landingPage = () => {
                             <h6> Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</h6>
                             <div className='faqbtn'>
                                 <Link to={"/signup"}>
-                                    <button type="button" className="btn btn-lg">Get Started </button>
+                                    <button type="button" class="btn btn-lg">Get Started </button>
                                 </Link>
                             </div>
                         </div>
