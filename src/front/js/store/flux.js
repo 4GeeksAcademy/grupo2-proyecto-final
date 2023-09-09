@@ -189,6 +189,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			//password reset
+			passwordReset: async (password, confirmPassword, token) => {
+				if (!password) {
+					// Use SweetAlert2 for error message when no password is given
+					Swal.fire({
+						icon: 'error',
+						title: 'Password Reset Failed',
+						text: 'You must provide a new password',
+					});
+					return;
+				}
+
+				try {
+					const options = {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							"new_password": password,
+							"confirm_password": confirmPassword,
+							"token": token
+						})
+					};
+
+					const resp = await fetch(process.env.BACKEND_URL + "/api/reset_password/" + token, options);
+					const data = await resp.json();
+					console.log(data);
+
+					if (resp.status == 200) {
+						// Use SweetAlert2 for successful password change message
+						Toast.fire({
+							icon: 'success',
+							title: 'Password Reset Successful',
+						});
+					} else {
+						// Use SweetAlert2 for error messages while changing password
+						Swal.fire({
+							icon: 'error',
+							title: 'Password Reset Failed',
+							text: data.message,
+						});
+					}
+
+				} catch (err) {
+					console.error("An error has occurred while resetting the password", err);
+				}
+			},
+
 			logout: () => {
 				localStorage.clear();
 				setStore({ viewLogged: false, token: "", user_id: null });

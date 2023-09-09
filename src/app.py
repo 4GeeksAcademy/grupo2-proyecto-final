@@ -7,13 +7,17 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, User
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 
 from flask_jwt_extended import JWTManager
 from api.security import bcrypt
+
+from flask_mail import Mail, Message
+
+import secrets
 
 #from models import Person
 
@@ -22,6 +26,18 @@ static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
+# Setup the Flask-Mailer
+app.config.update(dict(
+    DEBUG = False,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = 'movplusrecovery@gmail.com',
+    MAIL_PASSWORD = 'tojgakgbstdqwhad'
+))
+mail = Mail(app)
+
 # Setup the Flask-JWT-Extended extension
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 jwt = JWTManager(app)
@@ -29,7 +45,7 @@ jwt = JWTManager(app)
 # Initialize bcrypt instance
 bcrypt.init_app(app)
 
-# database condiguration
+# database configuration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
@@ -72,6 +88,28 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0 # avoid cache memory
     return response
+
+# Generates secret token and password link to recover password
+@app.route('/api/password-recovery', methods=['POST'])
+def password_recovery():
+    email = request.json.get("email")
+    user = User.query.filter_by(email=email).first()
+    if user:
+        # Generates a unique token
+        token = secrets.token_urlsafe(32)
+
+        # Sends the token via email
+        msg = Message(subject="Password Reset", sender="movplusrecovery@gmail.com", recipients=[email])
+        msg.body = f"Click the following link to reset your password: {os.getenv('FRONTEND_URL') + '/password-reset/' + token }"
+        mail.send(msg)
+
+        # Stores the token in the database for verification
+        user.reset_token = token
+        db.session.commit()
+
+        return jsonify({"message": "A password reset email has been sent to the email address provided"}), 200
+    else:
+        return jsonify({"message": "Email not found"}), 404
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

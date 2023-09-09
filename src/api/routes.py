@@ -11,6 +11,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 
+
 api = Blueprint('api', __name__)
 
 
@@ -193,7 +194,7 @@ def add_to_watchlist(movie_id):
 
     return jsonify({'message': 'Movie was added to the Watch Later list successfully'}), 201
 
-# Removes a movie from the user's Watch Later list
+# Removes a movie from the user's Watchlist
 @api.route('/playlist/<int:movie_id>', methods=['DELETE'])
 @jwt_required()
 def delete_from_watchlist(movie_id):
@@ -204,3 +205,33 @@ def delete_from_watchlist(movie_id):
     db.session.delete(watchlater_movie)
     db.session.commit()
     return jsonify({'msg': 'A movie was removed successfully'}), 200
+
+# Reset user's password
+@api.route('/reset_password/<token>', methods=['POST'])
+def reset_password(token):
+    body = request.get_json(silent=True)
+    user = User.query.filter_by(reset_token=token).first()
+
+    if user is None:
+        raise APIException('Invalid Token', status_code=400)
+
+    if body is None:
+        raise APIException('You must send information inside the body', status_code=400)
+
+    new_password = body['new_password']
+    confirm_password = body['confirm_password']
+
+    if new_password is None:
+        raise APIException('You must provide a password', status_code=400)
+
+    # Verifies password doesn't have typos
+    if new_password != confirm_password:
+        raise APIException('Passwords do not match', status_code=400)
+
+    # Updates the user's password
+    user.password = generate_password_hash(new_password).decode("utf-8")
+    # Removes the reset_token from the database
+    user.reset_token = None
+    db.session.commit()
+
+    return jsonify({"message": "Password reset successfully"}), 200
