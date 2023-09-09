@@ -12,12 +12,17 @@ import Movies from "./pages/Movies";
 import Playlist from "./pages/Playlist";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import UserProfile from "./pages/UserProfile";
+import TermsOfUse from "./pages/TermsOfUse";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import FAQs from "./pages/FAQs";
+import RestrictedAccess from "./pages/RestrictedAccess";
+import PasswordRecovery from "./pages/PasswordRecovery";
 import injectContext from "./store/appContext";
 
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-
 
 //create your first component
 const Layout = () => {
@@ -38,11 +43,18 @@ const Layout = () => {
                         <Route element={<SignUp />} path="/signup" />
                         <Route element={<Movies />} path="/movies" />
                         <Route element={<Playlist />} path="/playlist"/> 
+                        <Route element={<UserProfile />} path="/userprofile" />
                         <Route path="/" element={<LandingPage />} />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<SingleMovie />} path="/movie/:theid" />
                         <Route element={<h1>Not found!</h1>} />
+                        <Route element={<TermsOfUse />} path="/terms-of-use" />
+                        <Route element={<PrivacyPolicy />} path="/privacy-policy" />
+                        <Route element={<FAQs />} path="/faqs" />
+                        <Route element={<RestrictedAccess />} path="/restricted-access" />
+                        <Route element={<PasswordRecovery />} path="/password-recovery" />
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>

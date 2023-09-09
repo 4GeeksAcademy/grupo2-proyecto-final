@@ -6,8 +6,14 @@ import Card from '../component/Card';
 function Movies() {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
+        if (!token) {
+            navigate("/restricted-access");
+            return;
+        }
+
         actions.fetchPopularMovies();
         actions.fetchGenresAndLanguages();
     }, []);
@@ -55,60 +61,62 @@ function Movies() {
                 </div>
             </form>
             <hr className="hr hr-blurry" />
-            <div className="row justify-content-center mb-5">
-                <div className="col-4">
-                    <div className="category-selector">
-                        <select className="form-select" value={store.selectedGenre}
-                            onChange={(e) => actions.setSelectedGenre(e.target.value)}>
-                            <option value="" key="0">Category</option>
-                            {store.genres.map(genre => (
-                                <option key={genre.id} className="movies-option" value={genre.id}>
-                                    {genre.name}
-                                </option>
-                            ))}
-                        </select>
+            <div className="container-fluid">
+                <div className="row justify-content-center mb-5">
+                    <div className="col-4">
+                        <div className="category-selector">
+                            <select className="form-select" value={store.selectedGenre}
+                                onChange={(e) => actions.setSelectedGenre(e.target.value)}>
+                                <option value="" key="0">Category</option>
+                                {store.genres.map(genre => (
+                                    <option key={genre.id} className="movies-option" value={genre.id}>
+                                        {genre.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div className="col-4">
-                    <div className="language-selector">
-                        <select className="form-select" value={store.selectedLanguage}
-                            onChange={(e) => actions.setSelectedLanguage(e.target.value)}>
-                            <option value="" key="0">Movie Language</option>
-                            {store.languages.map(language => (
-                                <option key={language.iso_639_1} className="language-option"
-                                    value={language.iso_639_1}>
-                                    {language.english_name}
-                                </option>
-                            ))}
-                        </select>
+                    <div className="col-4">
+                        <div className="language-selector">
+                            <select className="form-select" value={store.selectedLanguage}
+                                onChange={(e) => actions.setSelectedLanguage(e.target.value)}>
+                                <option value="" key="0">Movie Language</option>
+                                {store.languages.map(language => (
+                                    <option key={language.iso_639_1} className="language-option"
+                                        value={language.iso_639_1}>
+                                        {language.english_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div className="col-4">
-                    <div className="runtime-selector">
-                        <select className="form-select" value={store.selectedRuntime}
-                            onChange={(e) => actions.setSelectedRuntime(e.target.value)}>
-                            <option value="" key="0">Available Time</option>
-                            <option value="30">Up to 30 minutes</option>
-                            <option value="60">Up to 1 hour</option>
-                            <option value="90">Up to 1.5 hours</option>
-                            <option value="120">Up to 2 hours</option>
-                            <option value="150">Up to 2.5 hours</option>
-                            <option value="180">Up to 3 hours</option>
-                        </select>
+                    <div className="col-4">
+                        <div className="runtime-selector">
+                            <select className="form-select" value={store.selectedRuntime}
+                                onChange={(e) => actions.setSelectedRuntime(e.target.value)}>
+                                <option value="" key="0">Available Time</option>
+                                <option value="30">Up to 30 minutes</option>
+                                <option value="60">Up to 1 hour</option>
+                                <option value="90">Up to 1.5 hours</option>
+                                <option value="120">Up to 2 hours</option>
+                                <option value="150">Up to 2.5 hours</option>
+                                <option value="180">Up to 3 hours</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div className="filter-button-container">
-                    <button className="filter-button"
-                        onClick={handleFiltersChange}>Filter Movies
-                    </button>
-                    <button className="clear-button"
-                        onClick={handleClearButton}>Clear
-                    </button>
+                    <div className="filter-button-container">
+                        <button className="filter-button"
+                            onClick={handleFiltersChange}>Filter Movies
+                        </button>
+                        <button className="clear-button"
+                            onClick={handleClearButton}>Clear
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div className="mb-3">
+            <div className="container-fluid mb-3">
                 {/* Section title */}
-                <h2 className="text-light">{store.sectionTitle}</h2>
+                <h2 className="text-light section-title">{store.sectionTitle}</h2>
             </div>
             <div>
                 <div className="text-center d-flex overflow-auto pt-3 movies-card-container">

@@ -1,3 +1,17 @@
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+	toast: true,
+	position: 'top-end',
+	showConfirmButton: false,
+	timer: 3000,
+	timerProgressBar: true,
+	didOpen: (toast) => {
+		toast.addEventListener('mouseenter', Swal.stopTimer)
+		toast.addEventListener('mouseleave', Swal.resumeTimer)
+	}
+});
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -7,7 +21,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user_id: null,
 			email: null,
 			password: null,
-			token: null,
+			token: "",
+			currentPassword: "",
+			newPassword: "",
+			confirmPassword: "",
 			loggedUser: "",
 
 			watchLaterList: [],
@@ -26,24 +43,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			sectionTitle: "Popular Movies",
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
 
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			syncTokenFromLocalStorage: () => {
+				const token = localStorage.getItem("token");
+				if (token && token !== "" && token !== undefined && token !== null) {
+					setStore({ token: token });
+				}
 			},
 
 			login: async (email, password) => {
@@ -64,18 +69,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data);
 
 					if (resp.status == 200) {
-						localStorage.setItem("token", data.access_token)
-						setStore({ viewLogged: true, user_id: data.user_id })
-					} else alert(data.message);
-
+						localStorage.setItem("token", data.access_token);
+						setStore({ viewLogged: true, user_id: data.user_id, token: data.access_token });
+						// Use SweetAlert2 for success login in message
+						Toast.fire({
+							icon: 'success',
+							title: 'Log In Successful',
+						});
+					} else {
+						// Use SweetAlert2 for error messages
+						Swal.fire({
+							icon: 'error',
+							title: 'Log In Failed',
+							text: data.message,
+						});
+					}
 				} catch (err) {
 					console.error("An error has occurred during login", err);
 				}
 			},
 
-			signUp: async (email, password) => {
+			signUp: async (email, password, confirmPassword) => {
 				if (!email || !password) {
-					alert("Please enter both email and password");
+					// Use SweetAlert2 for error messages while signing up
+					Swal.fire({
+						icon: 'error',
+						title: 'Sign Up Failed',
+						text: 'Please enter both email and password',
+					});
 				}
 				try {
 					const options = {
@@ -85,7 +106,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						body: JSON.stringify({
 							"email": email,
-							"password": password
+							"password": password,
+							"confirm_password": confirmPassword
 						})
 					};
 
@@ -94,10 +116,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data);
 
 					if (resp.status == 200) {
-						alert("User registered successfully")
+						// Use SweetAlert2 for sign up success message
+						Toast.fire({
+							icon: 'success',
+							title: 'Sign Up Successful',
+						});
 						setStore({ viewSignUp: true })
 					} else {
-						alert(data.message);
+						// Use SweetAlert2 for error messages while signing up
+						Swal.fire({
+							icon: 'error',
+							title: 'Sign Up Failed',
+							text: data.message,
+						});
 					}
 
 				} catch (err) {
@@ -129,9 +160,61 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			//update user information
+			updateProfile: async (updatedData) => {
+				const token = localStorage.getItem("token");
+				setStore({ token: token });
+
+				if (!token) {
+					// Use SweetAlert2 for error message when not logged in
+					Swal.fire({
+						icon: 'error',
+						title: 'You Must Log In First',
+						text: 'You are not logged in. Please log in to update your password',
+					});
+					return;
+				}
+
+				try {
+					const options = {
+						method: 'PUT',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+						body: JSON.stringify({
+							"current_password": updatedData.currentPassword,
+							"new_password": updatedData.newPassword
+						})
+					};
+
+					const resp = await fetch(process.env.BACKEND_URL + "/api/updatepassword", options);
+					const data = await resp.json();
+					console.log(data);
+
+					if (resp.status == 200) {
+						// Use SweetAlert2 for successful password change message
+						Toast.fire({
+							icon: 'success',
+							title: 'Password updated successfully',
+						});
+					} else {
+						// Use SweetAlert2 for error messages while changing password
+						Swal.fire({
+							icon: 'error',
+							title: 'Password Update Failed',
+							text: data.message,
+						});
+					}
+
+				} catch (err) {
+					console.error("An error has occurred while updating the password", err);
+				}
+			},
+
 			logout: () => {
 				localStorage.clear();
-				setStore({ viewLogged: false })
+				setStore({ viewLogged: false, token: "" });
 			},
 
 			toggleSignUp: (value) => {
@@ -262,6 +345,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					recommendations: true,
 				});
 				getActions().fetchPopularMovies();
+				getActions().setSectionTitle("Popular Movies");
 			},
 
 			// stores the data selected in the filter selectors to the global state
@@ -282,7 +366,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setSectionTitle: (sectionTitle) => {
 				setStore({ sectionTitle });
 			},
-
+			// stores current password
+			setCurrentPassword: (currentPassword) => {
+				setStore({ currentPassword })
+			},
+			// stores new password
+			setNewPassword: (newPassword) => {
+				setStore({ newPassword })
+			},
+			// stores confirm password
+			setConfirmPassword: (confirmPassword) => {
+				setStore({ confirmPassword })
+			},
 			//sets section title when filtered
 			titleConditional: () => {
 				const chosenGenre = getStore().selectedGenre;
@@ -296,11 +391,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// adds a movie to the user's watch later list
+			// adds a movie to the user's watchlist
 			addToWatchLater: async (selectedItem) => {
 				const token = localStorage.getItem("token");
 				setStore({ token: token });
-				console.log("Adding to Watch Later list:", selectedItem);
+				console.log("Adding to Watchlist:", selectedItem);
 				const user_id = getStore().user_id;
 				if (!user_id) {
 					console.log("Please enter the user id");
@@ -338,22 +433,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const watchLaterPlaylist = getStore().watchLaterList;
 						if (!watchLaterPlaylist.some(item => item.id === selectedItem.id)) {
 							setStore({ watchLaterList: [...watchLaterPlaylist, selectedItem] });
-							alert("A movie was added to the Watch Later list successfully");
-							console.log("A movie was added to the Watch Later list successfully");
-						} else {
-							console.log(data.message);
-							alert("This movie was already added");
+							// Use SweetAlert2 to alert when movie is added successfully
+							Toast.fire({
+								icon: 'success',
+								title: 'The movie was added successfully',
+							});
+							console.log("A movie was added to Watchlist successfully");
 						}
 					} else {
-						console.log("Request failed with status:", resp.status);
+						console.log("Movie Already Added", resp.status);
+						// Use SweetAlert2 for error messages when adding movies to the watchlist
+						Swal.fire({
+							icon: 'error',
+							title: 'This movie was already added',
+						});
 					}
 				} catch (err) {
 					console.error("An error has occurred:", err);
 				}
 			},
 
-			// deletes a movie to the user's watch later listt
-			deleteFavorites: async (selectedFavorite) => {
+			// deletes a movie from the user's watchlist
+			deleteFromWatchList: async (selectedMovie) => {
 				const token = localStorage.getItem("token");
 				setStore({ token: token });
 
@@ -366,16 +467,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 					};
 
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/playlist/${selectedFavorite.id}`, options);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/playlist/${selectedMovie.id}`, options);
 
 					if (resp.ok) {
 						const data = await resp.json();
 						console.log(data.message);
-						const listOfFavorites = getStore().favorites;
-						setStore({ favorites: listOfFavorites.filter((item) => item.id !== selectedFavorite.id) });
-						console.log("The movie was removed from favorites");
+						const watchLaterPlaylist = getStore().watchLaterList;
+						setStore({ watchLaterList: watchLaterPlaylist.filter((item) => item.id !== selectedMovie.id) });
+						console.log("The movie was removed from watchlist");
+						// Use SweetAlert2 to alert when movie is deleted successfully
+						Toast.fire({
+							icon: 'success',
+							title: 'The movie was deleted successfully',
+						});
 					} else {
 						console.log("Request failed with status:", resp.status);
+						// Use SweetAlert2 for error messages when adding movies to the watchlist
+						Swal.fire({
+							icon: 'error',
+							title: "The movie was already deleted",
+						});
 					}
 				} catch (err) {
 					console.error("An error has occurred:", err);
