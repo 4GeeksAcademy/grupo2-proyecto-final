@@ -10,7 +10,7 @@
 }
 
 .landHeader {
-    background-image: linear-gradient(rgba(26, 4, 41, 0.76), rgba(0, 0, 0, 0.925)), url('https://hips.hearstapps.com/hmg-prod/images/movies-based-on-a-true-story-64e7c14b60826.jpg');
+    background-image: linear-gradient(rgba(26, 4, 41, 0.76), rgba(0, 0, 0, 0.925)), url('https://wallpapercave.com/wp/wp1945897.jpg');
     background-size: cover;
     -webkit-animation: slidein 100s;
     animation: slidein 50s;
@@ -50,11 +50,11 @@
 
 }
 
-
 .landingPageStyle h1 {
     color: #ffffff;
     font-weight: 700;
     font-size: 100px;
+    margin-top: 5rem;
 }
 
 .landingPageStyle h3 {
@@ -63,10 +63,6 @@
     font-weight: 100;
     font-size: 50px;
 
-}
-
-.space {
-    padding: 12%;
 }
 
 .landingPageStyle h5 {
@@ -87,7 +83,7 @@
     color: #ffffff;
     margin-top: 20%;
     font-weight: 50;
-    font-size: 8rem;
+    font-size: 5rem;
     margin-left: 2em;
     margin-top: 200px;
     font-style: italic;
@@ -103,11 +99,10 @@
 
 .landingPageStyle p {
     font-weight: 100;
-    font-size: 5rem;
+    font-size: 2rem;
     line-height: 5rem;
-    letter-spacing: 0.05em;
     color: #FFFFFF;
-    margin-left: 16rem;
+    margin-left: 11rem;
     margin-top: 20px;
     margin-bottom: 200px;
 }
@@ -138,11 +133,25 @@
 .firstsection img {
     margin-top: 16%;
     margin-bottom: 15%;
+    width: 30rem;
 }
 
 .secsection img {
     margin-top: 12%;
-    width: 50rem;
+    width: 40rem;
+    margin-left: -8rem;
+}
+
+.thirdsection img {
+    margin-top: 10rem;
+    width: 40rem;
+    margin-left: -4rem;
+}
+
+.fourthsection img {
+    margin-top: 10rem;
+    width: 40rem;
+    margin-left: -4rem;
 }
 
 .secsection {
@@ -174,6 +183,10 @@
     background-color: #35027e;
 }
 
+.header {
+    width: 20rem;
+    padding-top: 50rem;
+}
 
 /* Line 1 */
 .linep {
