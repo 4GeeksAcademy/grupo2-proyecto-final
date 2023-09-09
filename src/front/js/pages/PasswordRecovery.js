@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import React, { useState } from "react";
 import mov_iconlogo from "../../img/mov+icon.png";
 import "../../styles/PasswordRecovery.css"
@@ -7,9 +8,39 @@ const PasswordRecovery = () => {
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // agregar la lógica para enviar un correo de recuperación de contraseña
+
+    try {
+      const response = await fetch(process.env.BACKEND_URL + '/api/password-recovery', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        // Password reset email sent successfully
+        Swal.fire({
+          icon: 'success',
+          title: 'Password Reset Email Sent',
+          text: data.message,
+        });
+      } else {
+        console.error('Password reset failed:', data.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Password Reset Failed',
+          text: data.message,
+        });
+      }
+    } catch (error) {
+      console.error('An error occurred during password reset:', error);
+    };
 
     setMessage("Check your email for password reset instructions.");
     setIsSubmitted(true);
@@ -49,9 +80,6 @@ const PasswordRecovery = () => {
           </div>
         </div>
       </div>
-      <footer className="footer">
-        {/* Contenido del footer */}
-      </footer>
     </div>
   );
 };
