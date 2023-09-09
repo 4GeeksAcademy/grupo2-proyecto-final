@@ -13,7 +13,7 @@
     background-image: linear-gradient(rgba(26, 4, 41, 0.76), rgba(0, 0, 0, 0.925)), url('https://hips.hearstapps.com/hmg-prod/images/movies-based-on-a-true-story-64e7c14b60826.jpg');
     background-size: cover;
     -webkit-animation: slidein 100s;
-    animation: slidein 100s;
+    animation: slidein 50s;
 
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
@@ -159,6 +159,21 @@
     margin-top: 1%;
 
 }
+
+.header button {
+    /* header */
+    margin-top: 20px;
+    float: right;
+    color: #ffffff;
+    margin-right: 100px;
+    background-color: #1B0140;
+}
+
+.header button:hover {
+    color: white;
+    background-color: #35027e;
+}
+
 
 /* Line 1 */
 .linep {

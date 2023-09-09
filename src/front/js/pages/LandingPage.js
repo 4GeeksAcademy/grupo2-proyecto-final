@@ -1,6 +1,6 @@
 import React from 'react'
-import landingBg from "../../img/LandingPageBg.png";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
+import movplusImageUrl from "../../img/mov+icon_white.png";
 import { Link } from 'react-router-dom';
 import "../../styles/LandinP.css";
 
@@ -9,13 +9,19 @@ export const landingPage = () => {
     return (
         <>
             <div className='landingPageStyle'>
+                <span className='header'>
+                    <img src={movplusImageUrl} style={{ height: "3rem" }} />
+                    <Link to={"/login"}>
+                        <button type="button" class="btn btn-lg">Sign In</button>
+                    </Link>
+                </span>
                 <div className='landHeader'>
                     <div className='container'>
                         <div className='text-center'>
                             <div className='space'></div>
-                            <h1>Unlimited Movies, TV shows and more. </h1>
-                            <h3>Watch anywhere. Cancel anytime. </h3>
-                            <h5>Ready to watch? Subscribe now! </h5>
+                            <h1>Get unlimited movies reccomendations. </h1>
+                            <h3>Access anywhere. </h3>
+                            <h5>Sign up, now! </h5>
                             <div className='btnsection'>
                                 <Link to={"/signup"}>
                                     <button type="button" class="btn btn-lg">Get Started </button>
@@ -49,7 +55,7 @@ export const landingPage = () => {
                         <div className="col-lg-5 col-md-6 col-sm-12">
                             <h4>Easy to access</h4>
                             <p>
-                                
+
                             </p>
                         </div>
                     </section>

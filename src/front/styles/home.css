@@ -7,3 +7,17 @@
 */
 @import url('signup.css');
 @import url('login.css');
+@import url('movies.css');
+@import url('navbar.css');
+@import url('LandinP.css');
+@import url('policies.css');
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}

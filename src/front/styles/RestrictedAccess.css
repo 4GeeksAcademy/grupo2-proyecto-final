@@ -1,0 +1,10 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 7rem 0 4rem 0;
+}
+
+.emoji {
+  font-size: 3rem;
+  /* Ajusta el tamaño del emoji según tus preferencias */
+}

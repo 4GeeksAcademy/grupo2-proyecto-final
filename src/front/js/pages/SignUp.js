@@ -6,36 +6,43 @@ function SignUp() {
     const { store, actions } = useContext(Context);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await actions.signUp(email, password);
+            await actions.signUp(email, password, confirmPassword);
             if (store.viewSignUp) {
                 navigate("/login");
             }
 
         } catch (error) {
             console.error("An error occurred during signup:", error);
+            e.target.reset();
         }
-
-        e.target.reset();
     };
 
     return (
-        <div className="mt-5">
+        <div className="signup-container">
             <form className="m-auto" onSubmit={handleSubmit}>
-                <h1 className="container signup-form-title">Create an account to get started</h1>
-                <div class="signup-form-container text-center">
+                <div className="container container-title signup-form-title">
+                    <span className="shadows">S</span>
+                    <span className="shadows">i</span>
+                    <span className="shadows">g</span>
+                    <span className="shadows">n</span>
+                    <span className="shadows">U</span>
+                    <span className="shadows">p</span>
+                </div>
+                <div className="signup-form-container text-center">
                     <div className="signup-form-group">
                         <label htmlFor="inputEmail" className="signup-label">Email Address</label>
                         <input
                             type="email"
                             className="signup-form-control"
                             id="inputEmail"
-                            placeholder="Enter an Email Address"
+                            placeholder="Email Address"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -46,9 +53,20 @@ function SignUp() {
                             type="password"
                             className="signup-form-control"
                             id="inputPassword"
-                            placeholder="Enter a Password"
+                            placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="signup-form-group">
+                        <label htmlFor="inputPassword" className="signup-label">Repeat Password</label>
+                        <input
+                            type="password"
+                            className="signup-form-control"
+                            id="inputPassword"
+                            placeholder="Repeat Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
                 </div>
