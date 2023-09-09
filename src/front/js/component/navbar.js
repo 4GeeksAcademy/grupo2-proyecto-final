@@ -30,9 +30,9 @@ export const Navbar = () => {
 		autoplay: false,
 		animationData: animationData,
 		rendererSettings: {
-			preserveAspectRatio: "xMidYMid slice",
-			height: "3rem",
-			width: "3rem",
+			preserveAspectRatio: "xMidYMid meet",
+			height: "48px",
+			width: "48px",
 			className: "lottie-svg-class",
 			id: "lottie-svg-id"
 		}
