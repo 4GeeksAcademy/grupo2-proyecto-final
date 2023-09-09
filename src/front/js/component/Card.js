@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import PropTypes from 'prop-types';
 
-const Card = ({ movie, user_id }) => {
+const Card = ({ movie, user_id, onRemoveFromWatchLater }) => {
     const { store, actions } = useContext(Context);
+    const location = useLocation();
+
+    const [currentPage, setCurrentPage] = useState(location.pathname);
 
     const handleAddToWatchLater = async () => {
         console.log('user_id:', user_id);
@@ -19,7 +22,29 @@ const Card = ({ movie, user_id }) => {
             vote_average: movie.vote_average,
         });
     };
+    
+    const handleRemoveFromWatchLater = () => {
+        onRemoveFromWatchLater(movie.id);
+    };
 
+    const showWatchLaterIcon = () => {
+        if (currentPage.includes('/movie')) {
+            return (
+                <button type="button" className="btn btn-danger" onClick={handleAddToWatchLater}>
+                    <i className="fas fa-eye"></i>
+                </button>
+            );
+        } else if (currentPage.includes('/playlist')) {
+            return (
+                <button type="button" className="btn btn-light" onClick={handleRemoveFromWatchLater}>
+                    <i className="fas fa-trash"></i>
+                </button>
+            );
+        } else {
+            return null;
+        }
+    };
+    
     return (
         <div className="card movies-card">
             <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
@@ -32,10 +57,7 @@ const Card = ({ movie, user_id }) => {
                     {movie.title}
                 </div>
                 <div className="movies-footer-buttons">
-                    <button type="button" className="btn btn-danger"
-                        onClick={handleAddToWatchLater}>
-                        <i className="fas fa-eye"></i>
-                    </button>
+                    {showWatchLaterIcon()}
                     <Link to={`/movie/${movie.id}`} >
                         <button type="button" className="btn btn-warning movies-info-btn">
                             <i className="text-light fas fa-circle-exclamation"></i>
@@ -44,7 +66,7 @@ const Card = ({ movie, user_id }) => {
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 Card.propTypes = {
