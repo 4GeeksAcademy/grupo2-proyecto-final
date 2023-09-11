@@ -17,11 +17,11 @@ import FAQs from "./pages/FAQs";
 import RestrictedAccess from "./pages/RestrictedAccess";
 import PasswordRecovery from "./pages/PasswordRecovery";
 import PasswordReset from "./pages/PasswordReset";
+import NotFound from "./pages/NotFound";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-
 
 //create your first component
 const Layout = () => {
@@ -46,7 +46,7 @@ const Layout = () => {
                         <Route element={<LandingPage />} path="/" />
                         <Route element={<PasswordReset />} path="password-reset/:token" />
                         <Route element={<SingleMovie />} path="/movie/:theid" />
-                        <Route element={<h1>Not found!</h1>} />
+                        <Route element={<NotFound />} path="*" />
                         <Route element={<TermsOfUse />} path="/terms-of-use" />
                         <Route element={<PrivacyPolicy />} path="/privacy-policy" />
                         <Route element={<FAQs />} path="/faqs" />

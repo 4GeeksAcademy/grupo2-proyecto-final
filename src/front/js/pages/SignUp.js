@@ -63,7 +63,7 @@ function SignUp() {
                         <input
                             type="password"
                             className="signup-form-control"
-                            id="inputPassword"
+                            id="inputConfirmPassword"
                             placeholder="Repeat Password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}

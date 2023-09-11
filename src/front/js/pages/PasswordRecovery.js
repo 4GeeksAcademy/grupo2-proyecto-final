@@ -13,9 +13,9 @@ const PasswordRecovery = () => {
   };
 
   return (
-    <div className="main-container mt-5">
+    <div className="main-container mt-4">
       <div className="content">
-        <div className="container mt-5">
+        <div className="container">
           <div className="row">
             <div className="col-md-6 offset-md-3 text-center">
               <img src={mov_iconlogo} alt="MOV+" className="img-fluid mb-4" />
@@ -23,20 +23,20 @@ const PasswordRecovery = () => {
                 <div className="alert alert-success">{store.message}</div>
               ) : (
                 <div>
-                  <h2>Forgot Your Password?</h2>
-                  <p>Please enter your email address. We will send you a link to reset your password.</p>
+                  <h2 className="recovery-title">Forgot Your Password?</h2>
+                  <p className="recovery-instructions">Please enter your email address. We will send you a link to reset your password.</p>
                   <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                       <input
                         type="email"
-                        className="form-control"
+                        className="form-control form-control-recovery"
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </div>
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary btn-recovery">
                       Send Reset Link
                     </button>
                   </form>

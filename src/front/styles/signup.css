@@ -2,6 +2,7 @@
 
 .signup-container {
     padding: 10rem 5rem 5rem 5rem;
+    background: linear-gradient(180deg, #000000 0%, #1B0140 100%);
 }
 
 .container-title {
@@ -38,7 +39,6 @@
     font-weight: 600;
     margin-bottom: 2rem;
     text-align: center;
-    /* text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7); */
 }
 
 .signup-form-group {
@@ -59,6 +59,8 @@
     line-height: 1.2em;
     font-size: 1.2rem;
     margin-left: 1rem;
+    background-color: transparent;
+    color: white;
 }
 
 .signup-label {
@@ -70,11 +72,12 @@
     text-align: left;
 }
 
+/* button style */
 .signup-btn {
     width: 60vw;
     height: 4rem;
     border-radius: 10px;
-    border: 0;
+    border: 1px solid white;
     background: #1B0140;
     color: white;
     font-family: "Open Sans";
@@ -88,6 +91,7 @@
     transition: 0.5s;
 }
 
+/* button effect when hovering over it */
 .signup-btn:after {
     content: '»';
     position: absolute;
@@ -99,9 +103,16 @@
 .signup-btn:hover {
     padding-right: 24px;
     padding-left: 8px;
+    background: hsl(265, 97%, 18%);
 }
 
 .signup-btn:hover:after {
     opacity: 1;
     right: 15vw;
+}
+
+/* button effect when clicking it */
+.signup-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0px 10px 20px -81px rgba(0, 0, 0, 0.24);
 }
