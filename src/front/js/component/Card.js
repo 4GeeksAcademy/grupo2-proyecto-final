@@ -7,8 +7,6 @@ const Card = ({ movie, user_id }) => {
     const { store, actions } = useContext(Context);
     const location = useLocation();
 
-    const [currentPage, setCurrentPage] = useState(location.pathname);
-
     const handleAddToWatchLater = async () => {
         console.log('user_id:', user_id);
         actions.addToWatchLater({
@@ -27,45 +25,53 @@ const Card = ({ movie, user_id }) => {
         actions.deleteFromWatchList(movie);
     };
 
-    const showWatchLaterIcon = () => {
-        if (currentPage.includes('/movies')) {
-            return (
-                <button type="button" className="btn btn-danger" onClick={handleAddToWatchLater}>
-                    <i className="fas fa-eye"></i>
-                </button>
-            );
-        } else if (currentPage.includes('/watchlist')) {
-            return (
-                <button type="button" className="btn btn-light" onClick={handleRemoveFromWatchLater}>
-                    <i className="fas fa-trash"></i>
-                </button>
-            );
-        } else {
-            return null;
-        }
-    };
-
     return (
-        <div className="card movies-card">
-            <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    className="img-fluid" alt={movie.title} />
-                <Link to={`/movie/${movie.id}`} />
-            </div>
-            <div className="card-footer movies-footer">
-                <div className="movies-footer-title">
-                    {movie.title}
+        (location.pathname === '/movies') ?
+            (<div className="card movies-card">
+                <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                        className="img-fluid" alt={movie.title} />
+                    <Link to={`/movie/${movie.id}`} />
                 </div>
-                <div className="movies-footer-buttons">
-                    {showWatchLaterIcon()}
-                    <Link to={`/movie/${movie.id}`} >
-                        <button type="button" className="btn btn-warning movies-info-btn">
-                            <i className="text-light fas fa-circle-exclamation"></i>
+                <div className="card-footer movies-footer">
+                    <div className="movies-footer-title">
+                        {movie.title}
+                    </div>
+                    <div className="movies-footer-buttons">
+                        <button type="button" className="btn btn-danger" onClick={handleAddToWatchLater}>
+                            <i className="fas fa-eye"></i>
                         </button>
-                    </Link>
+                        <Link to={`/movie/${movie.id}`} >
+                            <button type="button" className="btn btn-warning movies-info-btn">
+                                <i className="text-light fas fa-circle-exclamation"></i>
+                            </button>
+                        </Link>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>)
+            :
+            (<div className="card movies-card">
+                <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                        className="img-fluid" alt={movie.title} />
+                    <Link to={`/movie/${movie.id}`} />
+                </div>
+                <div className="card-footer movies-footer">
+                    <div className="movies-footer-title">
+                        {movie.title}
+                    </div>
+                    <div className="movies-footer-buttons">
+                        <button type="button" className="btn btn-light" onClick={handleRemoveFromWatchLater}>
+                            <i className="fas fa-trash"></i>
+                        </button>
+                        <Link to={`/movie/${movie.movie_id}`} >
+                            <button type="button" className="btn btn-warning movies-info-btn">
+                                <i className="text-light fas fa-circle-exclamation"></i>
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            </div>)
     );
 };
 

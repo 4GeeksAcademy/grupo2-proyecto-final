@@ -1,10 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { Context } from '../store/appContext';
 import Card from '../component/Card';
+import { useNavigate } from 'react-router-dom';
 
 function Playlist() {
     const { store, actions } = useContext(Context);
     const watchlistMovies = store.watchLaterList;
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
+
+    // Redirect to restricted page if not logged in
+    useEffect(() => {
+        if (!token) {
+            navigate("/restricted-access");
+            return;
+        };
+    }, [])
 
     useEffect(() => {
         // Fetch watchlist movies when the component mounts
