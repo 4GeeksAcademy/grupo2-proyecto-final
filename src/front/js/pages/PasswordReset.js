@@ -12,6 +12,8 @@ function PasswordReset(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         actions.passwordReset(password, confirmPassword, token);
+        setPassword("");
+        setConfirmPassword("");
     };
 
     return (

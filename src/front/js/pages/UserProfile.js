@@ -23,7 +23,7 @@ function UserProfile() {
         try {
             // checks password is correct
             if (store.newPassword !== store.confirmPassword) {
-                // Use SweetAlert2 for error messages while changing password
+                // SweetAlert2 for error messages while changing password
                 Swal.fire({
                     icon: 'error',
                     title: 'Password Update Failed',

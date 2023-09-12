@@ -182,6 +182,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							icon: 'success',
 							title: 'Password updated successfully',
 						});
+						getActions().setCurrentPassword("");
+						getActions().setNewPassword("");
+						getActions().setConfirmPassword("");
 					} else {
 						// SweetAlert2 for error messages while changing password
 						Swal.fire({
