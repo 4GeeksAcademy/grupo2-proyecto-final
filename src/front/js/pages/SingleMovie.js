@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import "../../styles/MovieView.css";
-import Card from '../component/Card';
+import SimilarCard from '../component/SimilarCard';
 
 const SingleMovie = () => {
     const { store, actions } = useContext(Context);
@@ -125,7 +125,7 @@ const SingleMovie = () => {
                 )
                 if (response.ok) {
                     const data = await response.json()
-                    setselectedMovieSimilar(data.results);
+                    setselectedMovieSimilar(data.similar.results);
                 } else {
                     console.error("Error fetching similar movies")
                 }
@@ -136,6 +136,7 @@ const SingleMovie = () => {
         fetchSimilar();
     }, [])
 
+    const similar = selectedMovieSimilar.slice(0, 5)
 
     if (!selectedMovie) {
         return <p>Oops...</p>;
@@ -149,9 +150,9 @@ const SingleMovie = () => {
                 <div className='container'>
                     <section className="row">
                         <div className='YoutubePlayer text-center'>
-                            <iframe mt-5 width="900" height="500" src={youtubeEmbedUrl}
+                            <iframe width="900" height="500" src={youtubeEmbedUrl}
                                 title="Movie Trailer"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+
                                 allowFullScreen></iframe>
                         </div>
                         <div className='movieheader'></div>
@@ -183,18 +184,22 @@ const SingleMovie = () => {
                             </span>
                             <div className="col-lg-2 col-sm-2 col-6 text-white">
                                 <p className="fw-bold m-0">Watch Providers:</p>
-                                {selectedMovie?.['watch/providers']?.results?.CR?.flatrate.map((provider) => (
-                                    <div key={provider.provider_id}>
-                                        <img src={provider.logo_path} style={{ width: "5rem" }} />
-                                        <p >{provider.provider_name}</p>
-                                    </div>
+                                {selectedMovie?.['watch/providers']?.results?.CR?.flatrate.length > 0 ? (
+                                    selectedMovie['watch/providers'].results.CR.flatrate.map((provider) => (
+                                        <div key={provider.provider_id}>
+                                            <p >{provider.provider_name}</p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No providers found</p>
+                                )}
+                            </div>
+                            <h2 className="text-white">You may also like:</h2>
+                            <div className="text-center d-flex overflow-auto pt-3 movies-card-container">
+                                {similar.map(movie => (
+                                    <SimilarCard key={movie.id} movie={movie} />
                                 ))}
                             </div>
-                           {/*  <div className="text-center d-flex pt-3">
-                                {selectedMovieSimilar.map((movie) => (
-                                    <Card key={movie.id} movie={movie} />
-                                ))}
-                            </div> */}
                         </div>
                     </section >
                 </div>
