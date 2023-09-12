@@ -577,9 +577,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						console.error('Error occurred while fetching the watchlist');
 						// SweetAlert2 for error messages when fetching the user's watchlist
-						Swal.fire({
+						Toast.fire({
 							icon: 'error',
-							title: 'An error occurred while fetching the watchlist',
+							title: 'Your watchlist is empty',
 						});
 					}
 				} catch (error) {
