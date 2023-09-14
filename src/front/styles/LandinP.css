@@ -76,7 +76,7 @@
     color: #ffffff;
     margin-top: 3%;
     font-weight: 20;
-    font-size: 22px;
+    font-size: 30px;
 }
 
 .landingPageStyle h4 {
@@ -117,14 +117,38 @@
     font-size: 35px;
 }
 
+.btn-header:hover {
+    color: #ffffff;
+    background-color: #26015a;
+}
+
+.btn-get-started {
+    padding-top: 0;
+}
+
+.btn-get-started:hover {
+    color: #ffffff;
+    background: #26015a;
+}
+
+.btn-get-started:active {
+    transform: scale(0.98);
+}
+
 .faqbtn button {
     width: 9em;
     padding: 20px;
     background: #40374B;
-    border-radius: 0px 4px 4px 0px;
+    border-radius: 10px;
+    font-size: 30px;
     color: white;
-    margin-bottom: 60px;
+    margin-bottom: 150px;
     margin-top: 20px;
+}
+
+.faqbtn button:hover {
+    color: white;
+    background: #534861;
 }
 
 .firstsection img {
@@ -186,7 +210,6 @@
 }
 
 .movApp {
-    width: 1280px;
     background-image: url('https://custom-doodle.com/wp-content/uploads/doodle/marvel-spider-man-hanging-upside-down/marvel-spider-man-hanging-upside-down-doodle.gif');
     background-repeat: no-repeat;
     background-color: black;

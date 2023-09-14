@@ -103,7 +103,7 @@
 .signup-btn:hover {
     padding-right: 24px;
     padding-left: 8px;
-    background: hsl(265, 97%, 18%);
+    background: #26015a;
 }
 
 .signup-btn:hover:after {
