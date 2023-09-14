@@ -12,7 +12,9 @@ function Movies() {
         if (!token) {
             navigate("/restricted-access");
             return;
-        }
+        };
+
+        window.scrollTo(0, 0);
 
         actions.fetchPopularMovies();
         actions.fetchGenresAndLanguages();
