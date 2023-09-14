@@ -12,7 +12,7 @@ export const landingPage = () => {
                     <span className='header'>
                         <img src={movplusImageUrl} style={{ height: "3rem", marginLeft: "1rem", marginTop: "1rem" }} />
                         <Link to={"/login"}>
-                            <button type="button" class="btn btn-lg btn-header">Sign In</button>
+                            <button type="button" className="btn btn-lg btn-header">Sign In</button>
                         </Link>
                     </span>
                     <div className='container'>
@@ -22,7 +22,7 @@ export const landingPage = () => {
                             <h5>Join our community! </h5>
                             <div className='btnsection'>
                                 <Link to={"/signup"}>
-                                    <button type="button" class="btn btn-lg btn-get-started">Get Started </button>
+                                    <button type="button" className="btn btn-lg btn-get-started">Get Started </button>
                                 </Link>
                             </div>
                         </div>
@@ -95,7 +95,7 @@ export const landingPage = () => {
                                 <h6> Coming soon in all mobile app stores</h6>
                                 <div className='faqbtn'>
                                     <Link to={"/signup"}>
-                                        <button type="button" class="btn btn-lg">Get Started </button>
+                                        <button type="button" className="btn btn-lg">Get Started </button>
                                     </Link>
                                 </div>
                             </div>
