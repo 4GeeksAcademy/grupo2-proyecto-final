@@ -98,9 +98,7 @@
 }
 
 .landingPageStyle p {
-    font-weight: 100;
     font-size: 2rem;
-    line-height: 5rem;
     color: #FFFFFF;
     margin-left: 11rem;
     margin-top: 20px;
@@ -108,7 +106,6 @@
 }
 
 .btnsection button {
-    /* body get started*/
     margin-top: 20px;
     color: #ffffff;
     background-color: #1B0140;
@@ -131,7 +128,7 @@
 }
 
 .firstsection img {
-    margin-top: 16%;
+    margin-top: 10rem;
     margin-bottom: 15%;
     width: 30rem;
 }
@@ -139,7 +136,7 @@
 .secsection img {
     margin-top: 12%;
     width: 40rem;
-    margin-left: -8rem;
+    margin-left: -10rem;
 }
 
 .thirdsection img {
@@ -149,13 +146,13 @@
 }
 
 .fourthsection img {
+    width: 45rem;
     margin-top: 10rem;
-    width: 40rem;
-    margin-left: -4rem;
 }
 
 .secsection {
     padding: 15rem;
+
 }
 
 .faq {
@@ -188,7 +185,14 @@
     padding-top: 50rem;
 }
 
-/* Line 1 */
+.movApp {
+    width: 1280px;
+    background-image: url('https://custom-doodle.com/wp-content/uploads/doodle/marvel-spider-man-hanging-upside-down/marvel-spider-man-hanging-upside-down-doodle.gif');
+    background-repeat: no-repeat;
+    background-color: black;
+
+}
+
 .linep {
     width: 100%;
     margin-top: 17%;
