@@ -26,6 +26,7 @@
 }
 
 .cardSimilar:hover .title-overlay {
+    cursor: pointer;
     visibility: visible;
     opacity: 1;
 }

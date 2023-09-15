@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import PropTypes from 'prop-types';
+import ComingSoonPlaceholder from "../../img/coming-soon-big.png";
 
 const Card = ({ movie, user_id }) => {
     const { store, actions } = useContext(Context);
@@ -29,9 +30,11 @@ const Card = ({ movie, user_id }) => {
         (location.pathname === '/movies') ?
             (<div className="card movies-card">
                 <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                        className="img-fluid" alt={movie.title} />
-                    <Link to={`/movie/${movie.id}`} />
+                    <Link to={`/movie/${movie.id}`}>
+                        {(movie.poster_path) ?
+                            (<img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="img-fluid" alt={movie.title} />) :
+                            (<img src={ComingSoonPlaceholder} className='img-fluid' alt={movie.title} />)}
+                    </Link>
                 </div>
                 <div className="card-footer movies-footer">
                     <div className="movies-footer-title">

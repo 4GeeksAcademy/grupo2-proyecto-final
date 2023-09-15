@@ -43,3 +43,20 @@
     width: 10rem;
     margin-bottom: 3rem;
 }
+
+.btn-watch-later {
+    background-color: transparent;
+    border: 0px;
+    color: white;
+}
+
+.btn-watch-later:hover {
+    background-color: transparent;
+    border: 0px;
+    color: #f2b749;
+}
+
+.btn-text {
+    margin-left: 0.5rem;
+    font-family: "Open Sans";
+}

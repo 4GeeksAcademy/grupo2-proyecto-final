@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../store/appContext';
 import Card from '../component/Card';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Playlist() {
     const { store, actions } = useContext(Context);
     const watchlistMovies = store.watchLaterList;
+    const [youtubeEmbedUrl, setYoutubeEmbedUrl] = useState("");
     const navigate = useNavigate();
+    const params = useParams();
     const token = localStorage.getItem("token");
 
     // Redirect to restricted page if not logged in
@@ -15,12 +17,18 @@ function Playlist() {
             navigate("/restricted-access");
             return;
         };
+        // Fetch watchlist movies when the component mounts
+        actions.fetchWatchLaterMovies();
     }, [])
 
     useEffect(() => {
-        // Fetch watchlist movies when the component mounts
-        actions.fetchWatchLaterMovies();
-    }, []);
+        // Fetch Trailer video
+        actions.fetchVideos(params, setYoutubeEmbedUrl);
+        // Fetch watch providers
+        actions.fetchProvider(params);
+        // Fetch similar movies
+        actions.fetchSimilar(params);
+    }, [params.theid]);
 
     return (
         <div className="movies-container">

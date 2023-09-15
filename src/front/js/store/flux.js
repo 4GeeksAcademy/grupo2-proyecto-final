@@ -27,10 +27,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			confirmPassword: "",
 			loggedUser: "",
 
+			selectedMovieSimilar: [],
+			similarMovies: [],
 			watchLaterList: [],
 			message: "",
 			isSubmitted: false,
 
+			selectedMovie: [],
 			genres: [],
 			selectedGenre: "",
 			languages: [],
@@ -362,6 +365,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					};
 
 					let apiUrl = 'https://api.themoviedb.org/3/discover/movie?&sort_by=popularity.desc';
+
 					// filters movies by genre
 					if (selectedGenre) {
 						apiUrl += `&with_genres=${selectedGenre}`;
@@ -401,14 +405,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			// filters movies by what's typed in the searchbar
-			filterMoviesWithSearchBar: (searchWord) => {
+			filterMoviesWithSearchBar: async (searchWord) => {
+
+				const currentWordLower = searchWord.toLowerCase();
+
 				try {
-					const filteredInfo = getStore().filteredMovies.filter(movie => {
-						const title = movie.title.toLowerCase();
-						const currentWordLower = searchWord.toLowerCase();
-						return title.includes(currentWordLower);
+					const options = {
+						method: 'GET',
+						headers: {
+							accept: 'application/json',
+							Authorization: `${process.env.API_BEARER_TOKEN}`
+						}
+					};
+					// fetches movies from themoviedb API by keyword
+					const resp = await fetch(`https://api.themoviedb.org/3/search/movie?query=${currentWordLower}&page=1`, options);
+					const data = await resp.json();
+
+					// maps through each movie to fetch the movie's runtime 
+					const movieDetailsPromises = data.results.map(async movie => {
+						const movieDetailsResp = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`, options);
+						const movieDetails = await movieDetailsResp.json();
+						return { ...movie, runtime: movieDetails.runtime };
 					});
-					setStore({ filteredMovies: filteredInfo });
+
+					const moviesWithRuntime = await Promise.all(movieDetailsPromises);
+					//adds popular movies with their runtime to the global store
+					setStore({ filteredMovies: moviesWithRuntime });
+
 				} catch (err) {
 					console.error("An error occurred while searching movies with the search bar:", err);
 				}
@@ -633,6 +656,89 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error has occurred:", err);
 				};
 			},
+
+			// Fetch movie trailer videos
+			fetchVideos: async (params, setYoutubeEmbedUrl) => {
+				try {
+					const API_key = "491c31c8a0eb95d5d79ed9ed60929455";
+					const videoUrl = `https://api.themoviedb.org/3/movie/${params.theid}/videos?api_key=${API_key}&language=en-US`;
+					const resp = await fetch(videoUrl);
+
+					if (resp.ok) {
+						const data = await resp.json();
+						const trailer = data.results.find((video) => video.type === 'Trailer' && video.site === 'YouTube');
+						if (trailer) {
+							// extracts the trailer key
+							const trailerKey = trailer.key;
+							// builds the YouTube embed URL
+							setYoutubeEmbedUrl(`https://www.youtube.com/embed/${trailerKey}`);
+						} else {
+							// sets URL to an empty string when there's no trailer found
+							setYoutubeEmbedUrl("");
+						}
+					} else {
+						console.error("Error fetching provider data");
+					}
+				} catch (error) {
+					console.error("Error fetching movie data", error);
+				}
+			},
+
+			// Fetch Watch Providers
+			fetchProvider: async (params) => {
+				try {
+					const API_key = "491c31c8a0eb95d5d79ed9ed60929455";
+					const response = await fetch(
+						`https://api.themoviedb.org/3/movie/${params.theid}?api_key=${API_key}&append_to_response=watch/providers`
+					)
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ selectedMovie: data });
+					} else {
+						console.error("Error fetching provider data")
+					}
+				} catch (error) {
+					console.error("Error fetching movie data", error);
+				}
+			},
+
+			// Fetch similar movies
+			fetchSimilar: async (params) => {
+				try {
+					const API_key = "491c31c8a0eb95d5d79ed9ed60929455";
+					const response = await fetch(
+						`https://api.themoviedb.org/3/movie/${params.theid}?api_key=${API_key}&append_to_response=similar`
+					)
+					if (response.ok) {
+						const data = await response.json()
+						setStore({ selectedMovieSimilar: data.similar.results });
+						setStore({ similarMovies: getStore().selectedMovieSimilar.slice(0, 5) });
+					} else {
+						console.error("Error fetching similar movies")
+					}
+				} catch (error) {
+					console.error("Error fetching movie data", error);
+				}
+			},
+
+			fetchMovie: async (params) => {
+				try {
+					const API_key = "491c31c8a0eb95d5d79ed9ed60929455";
+					const response = await fetch(
+						`https://api.themoviedb.org/3/movie/${params.theid}?api_key=${API_key}`
+
+					)
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ selectedMovie: data });
+					} else {
+						console.error("Error fetching movie data");
+					}
+				} catch (error) {
+					console.error("Error fetching movie data", error);
+				}
+			},
+
 		}
 	}
 };
