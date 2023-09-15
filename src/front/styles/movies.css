@@ -64,6 +64,14 @@
     border: 0;
 }
 
+.movies-details {
+    color: white;
+    font-family: "Open Sans";
+    font-size: 0.9rem;
+    text-align: left;
+    flex: 1;
+}
+
 .movies-info-btn {
     margin-left: 1rem;
 }
@@ -75,6 +83,12 @@
 .movies-footer-buttons {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+}
+
+.movies-footer-buttons-container {
+    display: flex;
+    align-items: center;
 }
 
 .movies-card-container {

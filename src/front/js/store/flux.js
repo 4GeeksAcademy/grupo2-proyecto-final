@@ -604,7 +604,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.error('Error occurred while fetching the watchlist');
 						// SweetAlert2 for error messages when fetching the user's watchlist
 						Toast.fire({
-							icon: 'error',
+							icon: 'info',
 							title: 'Your watchlist is empty',
 						});
 					}
@@ -721,6 +721,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// Fetch movie details
 			fetchMovie: async (params) => {
 				try {
 					const API_key = "491c31c8a0eb95d5d79ed9ed60929455";

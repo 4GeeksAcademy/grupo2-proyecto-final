@@ -41,14 +41,19 @@ const Card = ({ movie, user_id }) => {
                         {movie.title}
                     </div>
                     <div className="movies-footer-buttons">
-                        <button type="button" className="btn btn-danger" onClick={handleAddToWatchLater}>
-                            <i className="fas fa-eye"></i>
-                        </button>
-                        <Link to={`/movie/${movie.id}`} >
-                            <button type="button" className="btn btn-warning movies-info-btn">
-                                <i className="text-light fas fa-circle-exclamation"></i>
+                        <div className="movies-details">
+                            {movie.runtime} {" mins"}
+                        </div>
+                        <div className="movies-footer-buttons-container">
+                            <button type="button" className="btn btn-danger" onClick={handleAddToWatchLater}>
+                                <i className="fas fa-eye"></i>
                             </button>
-                        </Link>
+                            <Link to={`/movie/${movie.id}`} >
+                                <button type="button" className="btn btn-warning movies-info-btn">
+                                    <i className="text-light fas fa-circle-exclamation"></i>
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>)
@@ -64,14 +69,19 @@ const Card = ({ movie, user_id }) => {
                         {movie.title}
                     </div>
                     <div className="movies-footer-buttons">
-                        <button type="button" className="btn btn-light" onClick={handleRemoveFromWatchLater}>
-                            <i className="fas fa-trash"></i>
-                        </button>
-                        <Link to={`/movie/${movie.movie_id}`} >
-                            <button type="button" className="btn btn-warning movies-info-btn">
-                                <i className="text-light fas fa-circle-exclamation"></i>
+                        <div className="movies-details">
+                            {movie.runtime} {" mins"}
+                        </div>
+                        <div className="movies-footer-buttons-container">
+                            <button type="button" className="btn btn-light" onClick={handleRemoveFromWatchLater}>
+                                <i className="fas fa-trash"></i>
                             </button>
-                        </Link>
+                            <Link to={`/movie/${movie.movie_id}`} >
+                                <button type="button" className="btn btn-warning movies-info-btn">
+                                    <i className="text-light fas fa-circle-exclamation"></i>
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>)
